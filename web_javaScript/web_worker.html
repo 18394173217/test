@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javaScript 线程模型(Web Worker)</title>
+</head>
+<body>
+    <p>计数：<output id="result"></output></p>
+    <button onclick="startWorker()">开始worker</button>
+    <button onclick="endWorker()">停止worker</button>
+    <div id="test" onclick="testWorker()">点击我不会阻塞</div>
+    <br>
+    <script type="text/javaScript">
+        var w;
+        function startWorker(){
+            if(typeOf(Worker) != "undefined"){//浏览器支持web worker  
+                if(typeof(w)=="undefined"){//w是未定义的,还没有开始计数        
+                   w = new Worker("webworker.js");//创建一个Worker对象,利用Worker的构造函数  
+               }  
+               //onmessage是Worker对象的properties  
+               w.onmessage = function(event){//事件处理函数,用来处理后端的web worker传递过来的消息  
+                   document.getElementById("result").innerHTML=event.data;  
+               };  
+           }else{  
+               document.getElementById("result").innerHTML="sorry,your browser does not support web workers";  
+           }
+        }
+        function endWorker(){  
+          w.terminate();//利用Worker对象的terminated方法,终止  
+          w=undefined;  
+       } 
+       function ceshi(){
+           console.log(555)
+       }
+    </script>
+</body>
+</html>

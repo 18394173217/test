@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试onload</title>
+    <script type="text/javascript">
+        // 支持onload的标签 <body>, <frame>, <frameset>, <iframe>, <img>, <input type="image">, <link>, <script>, <style>
+        console.log('---------script');
+        // window.onload = function(){
+        //     console.log('----------window.onload');
+        // }
+        function windowOnload (){
+            console.log('----------window.onload');
+        }
+        function bodyOnload (){
+            console.log('-----------bodyOnload');
+        }
+        function imgOnload (){
+            console.log('-----------imgOnload');
+        }
+        window.onload = windowOnload();
+    </script>
+</head>
+<body onload="bodyOnload()">
+    <img onload="imgOnload()" src="https://pics5.baidu.com/feed/faedab64034f78f0de470a15b5435650b2191c7b.jpeg?token=a6f999683ae36584b1bd6a30a7ca2d23&s=E2C3DE144D1FD6CE08FEF74B030030FF" alt="">
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组推导</title>
+</head>
+<body>
+    <script>
+        function range(min, max){
+            return {
+                get min() { return min;},
+                get max() { return max;},
+                includes: function(x){
+                    return min <= x && x <= max;
+                },
+                toString: function(){
+                    return "[" + min + "," + max + "]";
+                },
+                __iterator__: function(){
+                    let val = Math.ceil(min);
+                    return {
+                        next: function(){
+                            if(val > max){
+                                throw Error('error');
+                            }
+                            return val++;
+                        }
+                    }
+                }
+            }
+        };
+        // let evensquares = [x*x for (x in range(0,10)){if (x % 2 === 0){}}];
+        let evensquares = [];
+        for(x in range(0,10)){
+            if(x % 2 === 0){
+                evensquares.push(x*x);
+            }
+        };
+        data = [2,3,4,-5];
+        // squares = [x*x for each (x in data)];
+        console.log('=======函数简写===========');
+        let succ = function(x){x+1},yes = function(){true},no = function(){false};
+        data.sort(function(a,b) {b-a});
+        let sumOfSquares = function(data){
+            Array.reduce(Array.map(data, function(x){x*x}),
+            function(x,y){x+y});
+        }
+        console.log('=======多catch从句==============')
+        try {
+            throw 1;
+        // } catch (e if e instanceof ReferenceError) {
+            
+        } catch (e){
+
+        } finally {
+            
+        }
+    </script>
+</body>
+</html>

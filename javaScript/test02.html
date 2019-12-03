@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>迭代器和生成器</title>
+</head>
+<body>
+    <script>
+        function Iterator(){
+
+        }
+        for(let [k, v] in Iterator({a:1, b:2})){
+            console.log(k +"="+ v);
+        }
+        o = {x:1, y:2};
+        Object.prototype.z = 3;
+        for(p in o){
+            console.log('p==',p);
+        };
+        for(p in Iterator(o, true)){
+            console.log('p==',p);
+        };
+        console.log('=======for of========');
+        var namea = ['a','b','c'];
+        var mark = [1, 2, 3];
+        for(var i of namea){
+            console.log('i==',i)
+        };
+        for(var i of mark){
+            console.log('i==',i)
+        };
+        console.log('=========javaScript 迭代器===========');
+        function myIterator(o){
+            let curIndex = 0;
+            let next = () => {
+                return {
+                    value: o[curIndex],
+                    done: o.length == ++curIndex,
+                }
+            }
+            return {
+                next,
+            }
+        };
+        let arrmy = [1,2];
+        let oIt = myIterator(arrmy);
+        console.log('oIt.next()==',oIt.next());  //value: 1,done: false
+        console.log('oIt.next()==',oIt.next());  //value: 2,done: true
+        console.log('oIt.next()==',oIt.next());  //value: undefind,done: false
+        console.log('oIt.next()==',oIt.next());  //value: undefind,done: false
+        function makeRangeIterator(start = 0, end = Infinity, step = 1){
+            let nextIndex = start;
+            let iterationCount = 0;
+            const rangeIterator = {
+                next: function(){
+                    let result;
+                    if(nextIndex < end){
+                        result = { value: nextIndex, done: false}
+                        nextIndex += step;
+                        iterationCount++;
+                        return result;
+                    }
+                    return { value: iterationCount, done: true}
+                }
+            }
+            return rangeIterator;
+        }
+        let it = makeRangeIterator(1, 10, 2);
+        let result = it.next();
+        while(!result.done){
+            console.log('result.value==',result.value);
+            result = it.next();
+        }
+        console.log('result.value111==',result.value);
+        console.log('===========javaScript 生成器=============');
+        function generateRange(min, max) {
+            for(let i = Math.ceil(min); i <= max; i++){
+                // yield i;
+            }
+        }
+        for(let n in generateRange(3, 8)){
+            console.log('n==',n);
+        };
+        function fibonacci(){
+            let x = 0,y = 1;
+            while(true){
+                // yield y;
+                [x, y] = [y, x+y];
+            }
+        }
+        f = fibonacci();
+        for(let i = 0; i < 10; i++){
+            console.log('f.next()==',f.next());
+        }
+        console.log('==================');
+        function eachline(s){
+            let p;
+            while((p = s.indexOf('\n')) != 1){
+                // yield s.substring(0, p);
+                s = s.substring(p+1);
+            }
+            if(s.length > 0){
+                // yield s;
+            }
+        }
+        function map(i, f){
+            for(let x in i){
+                // yield f(x);
+            }
+        }
+        function selet(i, f){
+            for(let x in f){
+                if(f(x)){
+                    // yield x;
+                }
+            }
+        }
+        let text = "#comment \n \n hello \nworld\n quit \n unreached \n";
+        let lines = eachline(text);
+        let trimmed = map(lines, function(line){ return line.trim();});
+        let nonblank = select(trimmed, function(line){
+            return line.length > 0 && line[0] != '#'
+        });
+        for(let line in nonblank){
+            if(line === 'quit'){
+                break;
+            }
+            console.log(line);
+        }
+
+    </script>
+</body>
+</html>

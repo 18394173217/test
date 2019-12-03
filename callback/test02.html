@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>testCallback</title>
+    <script>
+        window.onload = function(){
+            var info = []
+            function 你有几只狗(fn){
+                fn('一只狗')
+            }
+            function 你有几只猫(fn){
+                fn('一只猫')
+            }
+            function 知道了(数量,callback){
+                info.push(数量)
+                console.log(info)
+                if(callback){
+                    callback()
+                }
+            }
+            function 告诉你猫的个数(猫数){
+                console.log(猫数)
+                知道了(猫数)
+            }
+            function 继续数(){
+                你有几只猫(告诉你猫的个数)
+            }
+            function 告诉你狗的个数(狗数){
+                console.log(狗数)
+                知道了(狗数, 继续数)
+            }
+            你有几只狗(告诉你狗的个数)
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

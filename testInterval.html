@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计时器</title>
+</head>
+<body>
+    <div>
+        <input id="prizeInput" type="text">
+    </div>
+    <button id="prizeBtnStart" onclick="startFun('start')">开始</button>
+    <button id="prizeBtn" onclick="startFun('pause')">暂停</button>
+    <button id="prizeBtn" onclick="showFun()">展示</button>
+    <div id="prizeContent" style="width: 100px;height: 100px;"></div>
+    <script>
+        // 抽奖数据
+        var prizeArr = ['张三','李四','王五','张柳','阿萨德','耳温枪','废物','分为非'];
+        var i = 0, prizeInterval,btnStatus;
+        function startFun(val){
+            btnStatus = val;
+            clearInterval(prizeInterval);
+            if(val == 'start'){
+                prizeInterval = setInterval(() => {
+                    if(i < prizeArr.length){
+                        prizeContentText = prizeArr[i];
+                        document.getElementById('prizeInput').value = prizeArr[i];
+                        i += 1;
+                    } else {
+                        i = 0;
+                    }
+                }, 100);
+            } else if (val == 'pause'){
+                clearInterval(prizeInterval);
+            }
+        };
+        function showFun(){
+            if(btnStatus == 'pause'){
+                var prizeChild = document.createElement('div');
+                prizeChild.innerHTML = prizeContentText;
+                document.getElementById('prizeContent').appendChild(prizeChild);
+            }
+            btnStatus = '';
+        }
+        
+        //一个按钮控制 
+        // var prizeArr = ['张三','李四','王五','张柳','阿萨德','耳温枪','废物','分为非'];
+        // var i = 0, prizeInterval,btnStatus,prizeBtn = document.getElementById('prizeBtnStart');
+        // prizeBtn.innerHTML = '开始',prizeBtn.value = 'start',prizeBtn.status;
+        // function startFun(){
+        //     if(prizeBtn.value == 'start'){
+        //         prizeInterval = setInterval(() => {
+        //             if(i < prizeArr.length){
+        //                 prizeContentText = prizeArr[i];
+        //                 document.getElementById('prizeInput').value = prizeArr[i];
+        //                 i += 1;
+        //             } else {
+        //                 i = 0;
+        //             }
+        //         }, 100);
+        //         prizeBtn.innerHTML = '暂停';
+        //         prizeBtn.value = 'pause';
+        //     } else if (prizeBtn.value == 'pause'){
+        //         clearInterval(prizeInterval);
+        //         prizeBtn.innerHTML = '开始';
+        //         prizeBtn.value = 'start';
+        //         prizeBtn.status = '200';
+        //     }
+        // };
+        // function showFun(){
+        //     if(prizeBtn.value == 'start' && prizeBtn.status == '200'){
+        //         var prizeChild = document.createElement('div');
+        //         prizeChild.innerHTML = prizeContentText;
+        //         document.getElementById('prizeContent').appendChild(prizeChild);
+        //     }
+        //     prizeBtn.status = '';
+        // }
+    </script>
+</body>
+</html>

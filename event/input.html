@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>input</title>
+    <script type="text/javascript">
+        function myChange(){
+            var x = document.getElementById("divInput");
+                x.value = x.value.toUpperCase();
+        }
+        function myClick(){
+            var p = document.getElementById("myInfo");
+                p.innerHTML = '点击输入框，点击输入框'
+        }
+        function myFocus(){
+            var x = document.getElementById("divInput");
+                x.style.background = '#cfffff';
+        }
+        function myBlur(){
+            var x = document.getElementById("divInput");
+                x.style.background = '#ccc';
+        }
+        function myMouseOver(obj){
+            obj.style.background = 'aqua';
+        }
+        function myMouseOut(obj){
+            obj.style.background = '#ccc';
+        }
+        function leftAssignment(){  //运算符
+            var a = 1,   // a = (0000 0000 0000 0000 0000 0000 0000 0001);
+                b = 5;   // b = (0000 0000 0000 0000 0000 0000 0000 0101);
+                a <<= 3, // a = (0000 0000 0000 0000 0000 0000 0000 1000);
+                b <<= 5; // b = (0000 0000 0000 0000 0000 0000 1010 0000);
+            console.log('a==',a);  //8
+            console.log('b==',b);  //160
+                b >>= 3; // b = (0000 0000 0000 0000 0000 0000 0001 0100);
+            console.log('b==',b);  //20 按位与赋值
+            var bar = 5; // (0000 0000 0000 0000 0000 0000 0000 0101);
+                bar &= 2;// (0000 0000 0000 0000 0000 0000 0000 0010);
+            console.log('bar==',bar); //0  按位异或赋值
+                bar = 5; // (0000 0000 0000 0000 0000 0000 0000 0101);
+                bar ^= 2;// (0000 0000 0000 0000 0000 0000 0000 0010);
+            console.log('bar==',bar); //7  按位或赋值
+                bar = 5; // (0000 0000 0000 0000 0000 0000 0000 0101);
+                bar |= 2;// (0000 0000 0000 0000 0000 0000 0000 0010);
+            console.log('bar==',bar); //7
+        }
+        leftAssignment();
+    </script>
+</head>
+<body>
+    <div>请输入英文字母：<input type="text" id="divInput" onchange="myChange()"
+         onclick="myClick()" onfocus="myFocus()" onblur="myBlur()"></div>
+    <div><p>离开输入框，输入英文变为大写</p></div>
+    <div><p id="myInfo"></p></div>
+    <br>
+    <div class="mouse" style="width: 200px;height: 200px;" id="mouseChange"
+        onmouseover="myMouseOver(this)" onmouseout="myMouseOut(this)">
+        鼠标触发的事件
+    </div>
+</body>
+</html>

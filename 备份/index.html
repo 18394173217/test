@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="content/menuVideoAudit/index.css">
+<div class="home">
+    <div id="btn_show">详情页</div>
+</div>
+<!-- 详情页 -->
+<div id="particular" class="particular">
+    <!-- title -->
+    <div class="title_head">
+        <div class="left">
+            <div class="title" id="audit_particular_title">媒体名称-01详情</div>
+        </div>
+        <div class="middle"></div>
+        <div class="right">
+            <div class="icon btn">关闭详情</div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- 审核结果 -->
+        <div class="audit_result">
+            <div class="title">审核结果</div>
+            <div class="video" id="video_player"></div>
+            <div class="info">
+                <div class="info_message">
+                    <div class="content result">
+                        <div class="label">审核结果</div>
+                        <div class="text status" id="audit_result_text">待审核</div>
+                    </div>
+                    <div class="content message">
+                        <div class="label">审核描述</div>
+                        <div class="text description" id="audit_message_description"></div>
+                    </div>
+                </div>
+                <div class="btn">
+                    <div class="pass icon">通过</div>
+                    <div class="illegal icon">违规</div>
+                </div>
+            </div>
+        </div>
+        <!-- 识别结果明细 -->
+        <div class="result_detail">
+            <div class="title">识别结果明细</div>
+            <div class="content">
+                <div class="list_table" id="detail_table"></div>
+            </div>
+        </div>
+        <!-- 识别详情内容 -->
+        <div class="particular_content">
+            <div class="header">
+                <div class="select" id="recognition_select"></div>
+                <div class="middle"></div>
+                <div class="btn">
+                    <div class="icon poster_checked checked_bg"></div>
+                    <div class="icon list"></div>
+                    <div class="icon json"></div>
+                </div>
+            </div>
+            <div class="content">
+                <!-- 海报式详情 -->
+                <div class="content_poster">
+                    <div class="poster_left" id="particular_poster_content"> </div>
+                    <div class="poster_right">
+                        <div class="right_img">
+                            <div class="poster_right_img_content" id="particular_poster_content_img"></div>
+                        </div>
+                        <div class="list_table right_list" id="particular_poster_content_list"></div>
+                    </div>
+                </div>
+                <!-- 列表式详情 -->
+                <div class="content_list">
+                    <div class="list_table" id="content_list_table"></div>
+                </div>
+                <!-- json式列表 -->
+                <div class="content_json"></div>
+            </div>
+        </div>
+    </div>
+</div>

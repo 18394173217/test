@@ -1,0 +1,86 @@
+引用 uiWidget 公共组件
+1.new styledList  //table
+    new styledList({
+        containerId: "asset_list_table",  //引用div的id
+        rows: 15,  //期望显示行数
+        columns: title.length,  //列数 = title[].length
+        titles: title,  //表头
+        styles: style,  //样式
+        listType: 1,    // 用于渲染列表内容
+        async: true,    // 用于渲染列表内容
+        // data: data,  // 表格内容
+    })
+    // 参数较多，使用{}，可以通过属性名属性值一一对应
+2.new newSelect   //select
+    new newSelect(
+        '#asset_visible_filter',  //引用div的id
+        Model.visible(),   // 下拉框内容 option
+        ComboStyle,        // css样式
+        (value) => {       // 点击value触发的函数
+            Pane.setSearch('visible', value)
+            this.initTable();
+        }
+    )
+    // 参数不多，可以通过顺序位置一一对应
+3.new StyledSwitcher  //类似select但是会弹出一个div
+    new StyledSwitcher({
+        container: '#asset_category_filter',  //引用div的id
+        elements: [{      // 储存弹出显示的内容
+          label: category,
+          dropdown: {},
+          value() {}
+        }],
+        styles: {         // css样式
+          borderRadius: '3px'
+        }
+    })
+4.new DatePicker   // 日期选择
+    new DatePicker({
+        containerId: 'time_picker_start',  //引用div的id
+        calendarStyles: calendarStyles,    //css样式
+        initDate: '',                      //
+        dateInputStyles: {},               // 输入框样式
+        editable: true,                    //
+    })
+5.new OverlayDialog  //OverlayDialog
+    new OverlayDialog({
+        id: id,                 //id
+        local: true,            //local
+        content: dom,           //localContent
+        context: this,          //callbackRef
+        width: 662,             //dialogWidth
+        height: 500,            //dialogHeight
+        callback: function() {  //drawnCallback
+        this.bindEvents(dialog);
+            cb(dialog)
+        }
+    })
+6.new PopupDialog   //PopupDialog框
+    new PopupDialog({
+		// this.local: '',         //
+		// this.localContent: '',  //
+
+        url: "content/asset/meta/meta.html",  //htmlUri
+        width: 700,                //dialogWidth
+        height: 576,               //dialogHeight
+        context: this,             //callbackRef
+        callback: cb               //drawnCallback
+        //this.perWidth: '',       //
+		//this.perHeight: '',      //
+		//this.ajaxOnEachCreate: '', //
+    });
+7.AlertDialog  //AlertDialog 引用OverlayDialog完成
+    new AlertDialog({
+        message: msg,      //message提示信息
+        confirmFn: (callback) => {
+            API.delete(data, () => {
+            Pane.table.refreshList();
+            callback && callback();
+            })
+        }
+    })
+8.IndexChecker   //
+    new IndexChecker({
+        indexes: [],  //Array
+        title: '',    //title
+    });

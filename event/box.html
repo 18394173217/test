@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户可对视口进行调整</title>
+    <script type="text/javascript">
+        window.onload = function(){
+            var resizeDiv = document.getElementById('resizeTest');
+            function getStyle(element,property){
+                var proValue = null;
+                if(!document.defaultView){
+                    proValue = element.currentStyle[property];
+                } else {
+                    proValue = document.defaultView.getComputedStyle(element)[property];
+                }
+                return proValue;
+            }
+            console.log('width==',getStyle(resizeDiv, 'width'));
+            console.log('height==',getStyle(resizeDiv, 'height'));
+            resizeDiv.onclick = function(){
+                console.log('width==',getStyle(resizeDiv, 'width'));
+                console.log('height==',getStyle(resizeDiv, 'height'));
+                // var w = getStyle(resizeDiv, 'width');
+                // var h = getStyle(resizeDiv, 'height')
+                // resizeDiv.style.backgroundSize = w;
+            }
+            
+            // 键盘事件
+            var text1 = document.getElementById("text1");
+            text1.οnkeypress=function(e){
+                console.log('keypress',e);
+            }
+            text1.οnkeydοwn=function(e){
+                if(e == 13){
+                    console.log('keydown',e);
+                }
+            }
+        }
+    </script>
+    <style>
+        .resize {
+            width:300px;
+            height: 200px;
+            border:1px solid #000;
+            resize:both;
+            overflow:auto;
+            background-image: url('https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a62e824376d98d1069d40a31113eb807/838ba61ea8d3fd1fc9c7b6853a4e251f94ca5f46.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div class="resize" id="resizeTest">resize 属性规定是否可由用户调整元素尺寸。</div>
+    <input type="text" id="text1" onkeyup="keyup(event)" onkeypress="keypress(event)" onkeydown="keydown(event)"/>
+    <div id="keyinput1"></div>
+    <div id="keyinput2"></div>
+    <div id="keyinput3"></div>
+    <script>
+        var keyinput1 = document.getElementById("keyinput1");
+        var keyinput2 = document.getElementById("keyinput2");
+        var keyinput3 = document.getElementById("keyinput3");
+        function keyup (event){
+            keyinput1.innerHTML = 'keyup按键为：' + event.key;
+        }
+        function keypress (event){
+            keyinput2.innerHTML = 'keypress按键为：' + event.key;
+        }
+        function keydown (event){
+            keyinput3.innerHTML = 'keydown按键为：' + event.key;
+        }
+    </script>
+</body>
+</html>

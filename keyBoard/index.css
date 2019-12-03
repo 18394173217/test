@@ -1,0 +1,29 @@
+.key_board {
+	width: 164px;
+	height: 200px;
+	position: fixed;
+	left: 215px;
+	top: 500px;
+	background-color: rgba(163, 240, 144, 0.3);
+	display: none; 
+}
+
+.key_board_col {
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+	display: inline-block;
+	text-align: center;
+}
+
+.border {
+	position: relative;
+	top: 0;
+	left: 0;
+	color: #fff;
+	font-size: 22px;
+	font-weight: 700;
+	background-color: rgba(163, 240, 144, 0.8);
+	border: 1px solid #fff;
+}

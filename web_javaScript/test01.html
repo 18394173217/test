@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>web浏览器中的javaScript</title>
+</head>
+<style>
+    .content {width: 500px;height: 50px;border: 1px solid #ccc;}
+    .reveal * {display: none;}
+    .reveal *.handle {display: block;}
+    #clock {
+        font: bold 24pt sans;
+        background: #ddf;
+        padding: 10px;
+        border: solid black 2px;
+        border-radius: 10px;
+    }
+</style>
+<script>
+    window.onload = function(){
+        var elements = document.getElementsByClassName('reveal');
+        for(var i = 0; i < elements.length; i++){
+            var elt = elements[i];
+            var title = elt.getElementsByClassName('handle')[0];
+            addRevealHandler(title, elt);
+        };
+        function addRevealHandler(title, elt){
+            title.onclick = function(){
+                if(elt.className == "reveal"){
+                    elt.className = "revealed";
+                } else if(elt.className == 'revealed'){
+                    elt.className = 'reveal';
+                }
+            }
+        };
+        function displayTime(){
+            var elt = document.getElementById('clock');
+            var now = new Date();
+            // console.log('now==',now)
+            elt.innerHTML = now.toLocaleTimeString();
+            setTimeout(displayTime, 10);
+        };
+        displayTime();
+    }
+</script>
+<body>
+    <div id="timestamp" class="content"></div>
+    <div id='container' class="content"></div>
+    <div class="reveal">
+        <h3 class="handle">Click Here to Reveal Hidden Text</h3>
+        <p>This paragreaph is hidden.It appears when you click on the title</p>
+    </div>
+    <!-- JavaScript代码可以通过把函数赋值给Element对象的属性来注册事件处理程序 -->
+    <input type="text" id="inputContent">
+    <input type="checkbox" name="options" id="checkboxContent" value="true" 
+        onchange="
+            if(this.value == 'true'){
+                document.getElementById('inputContent').value = 'onchange_javaScript';
+                this.value = 'false';
+            } else {
+                document.getElementById('inputContent').value = '';
+                this.value = 'true';
+            }
+        "
+    >
+    <!-- javascript:URL可以在可以使用常规URL的任意地方：比如<a>标记的href属性，<form>的action属性，甚至window.open()方法的参数。 -->
+    <a href="javascript:new Date().toLocaleTimeString();" > 
+        What time is it? 
+    </a> 
+    <script>
+        // window.location = 'http://www.oreilly.com/';
+        // setTimeout(function(){ alert('hello world!')}, 2000);    
+        var timestamps = document.getElementById('timestamp');
+        var containers = document.getElementById('container');
+        if(timestamps.firstChild == null){
+            timestamps.appendChild(document.createTextNode(new Date().toString()));
+        };
+        timestamps.style.backgroundColor = "yellow";
+        timestamps.className = "highlight";
+        containers.onclick = function(){
+            this.innerHTML = new Date().toString();
+        };
+        console.log('===================');
+    </script>
+    <!-- <h3>Digital Clock</h3> -->
+    <span id="clock"></span>
+    <a href="javascript: alert(new Date().toLocaleTimeString());">检查时间</a> <!--alert()返回值为undefined-->
+    <a href="javascript: void window.open('about: blank')">打开一个窗口</a> <!--void 操作符强制函数调用或是给表达式赋值 undefined-->
+    <!-- 打开一个简单的JavaScript表达式计算器 -->
+    <a href="javascript:
+        var e = '', r = '';
+        do {
+            e = prompt('Expression: ' + e + '\n' + r + '\n', e);
+            try { r = 'Result: '+ eval(e);
+            }catch(ex){ r = ex};
+        } while (e);
+        void 0;
+    ">JavaScript Evaluator</a>
+    <h3>Table of Factorials</h3>
+    <!-- <div id="tableContent" style="width: 200px;height: 50px;border: 1px solid #ccc;"></div> -->
+    <!-- <input type="text" value='' placeholder="输入数字求阶乘" onclick="factorial(value)"> -->
+    <script>
+        function factorial(n){
+            console.log('factorial')
+            if(n <= 1){
+                return n;
+            } else {
+                return n*factorial(n-1);
+            }
+            document.write("<table>");
+            document.write("<tr><th>n</th><th>n!</th></tr>");
+            for(var i = 1; i <= 10; i++){
+                document.write("<td><td>"+ i +"</td><td>" + factorial(i) + "</td></tr>")
+            }
+            document.write("</table>");
+            document.write("Generated at "+ new Date());
+        }
+    </script>
+    <script>
+        function loadasync(url){
+            var head = document.getElementsByTagName("head")[0];
+            var s = document.createElement('script');
+            s.src = url;
+            head.appendChild(s);
+        }
+    </script>
+    <script>
+        // window.addEventListener('load', function(){}, false);   //addEventListener ('事件名称', function(){}, true/false);
+        // request.addEventListener('readystatechange', function(){}, false);
+        // IE8及之前的浏览器
+        // window.attachEvent('onload', function(){})
+    </script>
+    <script>
+        function onLoad(f){
+            if(onload.loaded){
+                window.setTimeout(f, 0);
+            } else if(window.addEventListener){
+                window.addEventListener('load', f, false);
+            } else if(window.attachEvent){
+                window.attachEvent('onload', f);
+            }
+        }
+        onLoad.loaded = false;
+        onLoad(function(){ onLoad.loaded = true;})
+    </script>
+    <script>
+        if(element.addEventListener){
+            element.addEventListener("keydown",handler,false);
+            element.addEventListener("keypress",handler,false);
+        } else if(element.attachEvent){
+            element.attachEvent("onkeydown",handler);
+            element.attachEvent("onkeypress",handler);
+        } else {
+            element.onkeydown = element.onkeypress = handler;
+        }
+    </script>
+    <script>
+        /*@cc_on
+            @if(@_jscript){
+                alert('You are using Internet Explorer');
+            } @else {*/
+                alert('Tou are not using Internet Explorer');
+            /*}@end
+            @*/
+        
+    </script>
+
+</body>
+</html>

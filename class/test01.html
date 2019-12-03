@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类和原型</title>
+</head>
+<body>
+    <script>
+        function inherit(p){
+            if(p == null){
+                throw TypeError('error');
+            }
+            if(Object.create){
+                return Object.create(p);
+            }
+            var t = typeof p;
+            if(t !== "object" && t !== 'function'){
+                throw TypeError('error');
+            }
+            function f(){}
+            f.prototype = p;
+            return new f();
+        };
+        function range(from, to){
+            var r = inherit(range.methods);
+            r.from = from;
+            r.to = to;
+            return r;
+        };
+        range.methods = {
+            includes: function(x){
+                return this.from <= x && x <= this.to;
+            },
+            foreach: function(f){
+                for(var x = Math.ceil(this.from); x <= this.to; x++){
+                    f(x);
+                }
+            },
+            toString: function(){
+                return "(" + this.from +"..."+ this.to +")";
+            }
+        };
+        var r = range(1, 3);
+        r.includes(2);
+        r.foreach(console.log);
+        console.log("r==",r);
+        console.log("r.toString()==",r.toString());
+        console.log('===================');
+        function Range(from, to){
+            this.from = from;
+            this.to = to;
+        };
+        Range.prototype = {
+            constructor: Range,  // 显式设置构造函数反向引用
+            includes: function(x){
+                return this.from <= x && x <= this.to;
+            },
+            foreach: function(f){
+                for(var x = Math.ceil(this.from); x <= this.to; x++){
+                    f(x);
+                }
+            },
+            toString: function(){
+                return "(" + this.from +'...'+ this.to +")";
+            }
+        };
+        var r = range(4, 6);
+        r.includes(5);
+        r.foreach(console.log);
+        console.log("r==",r);
+        console.log("r.toString()==",r.toString());
+        console.log('===================');
+        var R = new Range(4, 6);
+        console.log('R_includes==',R.includes(5));
+        R.foreach(console.log);
+        console.log('R_toString==',R.toString());
+        console.log('===================');
+        function F (){};
+        var o = new F ();
+        o.constructor === F;
+        console.log('o.constructor === F ===',o.constructor === F);
+        console.log('===================');
+        function Fun(from, to){
+            this.from = from;
+            this.to = to;
+        };
+        Fun.prototype.includes = function(x){ return this.from <= x && x <= this.to;};
+        Fun.prototype.foreach = function(f){
+            for(var x = Math.ceil(this.from); x <= this.to; x++){
+                f(x);
+            }
+        };
+        Fun.prototype.toString = function(){
+            return "("+ this.from +"..."+ this.to +")";
+        };
+        var f = new Fun(4, 6);
+        console.log('f_includes==',f.includes(5));
+        f.foreach(console.log);
+        console.log("f==",f);
+        console.log("f.toString()==",f.toString());
+        console.log('===================');
+        function extend(o, p){
+            for(prop in p){
+                o[prop] = p[prop];
+            }
+            return o;
+        }
+        function defineClass  (constructor,methods,statics){
+            if(methods){
+                extend(constructor.prototype, methods);
+            }
+            if(statics){
+                extend(constructor, statics);
+            }
+            return constructor;
+        }
+        var SimpleRange = defineClass(function(f, t){ this.f = f; this.t = t},{
+            includes: function(x){ return this.f <= x && x <= this.t;},
+            toString: function(){ return this.f + "..." + this.t;}
+        },{
+            upto: function(t){ return new SimpleRange(0, t);}
+        });
+
+        function Complex(real, imaginary){
+            if(idNaN(real || idNaN(imaginary))){
+                throw new TypeError('error');
+            }
+            this.r = real;
+            this.i = imaginary;
+        };
+        Complex.prototype.add = function(that){
+            return new Complex(this.r + that.r, this.i + that.i);
+        };
+        Complex.prototype.mul = function(that){
+            return new Complex(this.r * that.r - this.i * that.i, this.r * that.r + this.i * that.i);
+        };
+        Complex.prototype.mag = function(){
+            return Math.sqrt(this.r * this.r + this.i * this.i);
+        };
+        Complex.prototype.neg = function(){
+            return new Complex(-this.r , -this.i);
+        };
+        Complex.prototype.toString = function(){
+            return "{"+ this.r +","+ this.i + "}";
+        };
+        Complex.prototype.equals = function(that){
+            return that != null && that.constructor === Complex && this.r === that.r && this.i === taht.i;
+        };
+        Complex.ZERO = new Complex(0, 0);
+
+    </script>
+</body>
+</html>

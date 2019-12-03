@@ -1,0 +1,307 @@
+.home {
+    width: 100%;
+    height: 100%;
+}
+.home #btn_show {
+    width: 60px;
+    height: 30px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+/* 详情页css */
+.particular {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    background: #fff;
+    z-index: 99;
+}
+.particular .title_head {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    display: flex;
+    background: #e8eeef;
+}
+.particular .title_head .left {
+    width: 150px;
+    line-height: 30px;
+    text-align: left;
+}
+.particular .title_head .middle {
+    flex: 1;
+}
+.particular .title_head .right {
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    padding-top: 2px;
+}
+.particular .title_head .right .btn {
+    width: 60px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #b4b6b6;
+    border-radius: 5px;
+    background: #efefef;
+    color: #8a8a8a;
+    cursor: pointer;
+    font-size: 13px;
+}
+.particular .title_head .right .btn.icon {
+    padding-left: 30px;
+    background-image: url('../../image/particular/particular_close.png');
+    background-size: 14px;
+    background-position: 8px center;
+    background-repeat: no-repeat;
+}
+.particular .container {
+    padding: 20px 10px 5px;
+    background: #fff;
+}
+.particular .container .audit_result, .particular .container .result_detail {
+    width: 100%;
+    height: 150px;
+    margin-top: 15px;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+    display: flex;
+}
+.particular .audit_result .title, .particular .result_detail .title {
+    width: 100px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 10px;
+    position: absolute;
+    top: -13px;
+    left: 30px;
+    background: #fff;
+}
+.particular .audit_result .info {
+    padding-top: 20px;
+    margin-left: 230px;
+    flex: 1;
+    display: flex;
+}
+.particular .audit_result .info .info_message {
+    flex: 1;
+}
+.particular .audit_result .info_message .content {
+    height: 30px;
+    line-height: 30px;
+}
+.particular .audit_result .info_message .content .label {
+    width: 70px;
+    height: 26px;
+    line-height: 26px;
+    display: inline-block;
+}
+.particular .audit_result .info_message .message .label {
+    vertical-align: top;
+    position: relative;
+    top: 10px;
+}
+.particular .audit_result .info_message .content .text {
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f5f5f5;
+    display: inline-block;
+}
+.particular .audit_result .info_message .content .status {
+    width: 130px;
+    height: 26px;
+    line-height: 26px;
+    color: #777777;
+}
+.particular .audit_result .info_message .content .description {
+    width: 85%;
+    height: 80px;
+    margin-top: 10px;
+}
+.particular .audit_result .info .btn {
+    width: 120px;
+    padding-left: 10px;
+    padding-top: 50px;
+}
+.particular .audit_result .info .btn .pass, .particular .audit_result .info .btn .illegal {
+    width: 40px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 40px;
+    border-radius: 5px;
+    color: #fff;
+}
+.particular .audit_result .info .btn .pass {
+    background: #1de10e;
+    background-image: url('../../image/particular/icon_pass.png');
+}
+.particular .audit_result .info .btn .illegal {
+    margin-top: 10px;
+    background: #f66755;
+    background-image: url('../../image/particular/icon_illegal.png');
+}
+.particular .audit_result .info .btn .icon {
+    background-size: 25px;
+    background-position: 8px center;
+    background-repeat: no-repeat;
+}
+.particular .result_detail .content {
+    padding: 15px;
+    /* 暂时代替滚动条 */
+    overflow: auto;
+}
+.particular .particular_content {
+    /* height: 290px; */
+    height: 500px;
+    margin-top: 10px;
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+}
+.particular .particular_content .header {
+    height: 44px;
+    padding: 0 10px;
+    background: #fbfbfb;
+    display: flex;
+}
+.particular .particular_content .header .select {
+    height: 30px;
+    line-height: 30px;
+    margin-top: 6px;
+    color: #777;
+}
+.particular .particular_content #recognition_select .select-header {
+    padding: 0 10px;
+}
+.particular .particular_content .header .middle {
+    flex: 1;
+}
+.particular .particular_content .header .btn {
+    width: 130px;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 6px;
+    display: flex;
+}
+.particular .particular_content .header .btn .icon {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    margin: 0 5px;
+    background: #fff;
+    cursor: pointer;
+}
+.particular .particular_content .header .btn .checked_bg {
+    background: #fe931f;
+}
+.particular .particular_content .header .btn .poster {
+    background-image: url('../../image/particular/icon_poster.png');
+}
+.particular .particular_content .header .btn .poster_checked {
+    background-image: url('../../image/particular/icon_poster_checked.png');
+}
+
+.particular .particular_content .header .btn .list {
+    background-image: url('../../image/particular/icon_list.png');
+}
+.particular .particular_content .header .btn .list_checked {
+    background-image: url('../../image/particular/icon_list_checked.png');
+}
+
+.particular .particular_content .header .btn .json {
+    background-image: url('../../image/particular/icon_json.png');
+}
+.particular .particular_content .header .btn .json_checked {
+    background-image: url('../../image/particular/icon_json_checked.png');
+}
+.particular .particular_content .header .btn .icon {
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.particular .particular_content .content {
+    padding: 10px;
+}
+.particular .particular_content .content .content_poster {
+    display: flex;
+    /* 测试其他样式 */
+    /* display: none; */
+}
+/* .particular .particular_content .content .content_list {
+    display: none;
+} */
+.particular .particular_content .content_poster .poster_left {
+    height: 435px;
+    flex: 1;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    /* 暂时代替滚动条 */
+    overflow: auto;
+}
+.particular .particular_content #particular_poster_content .row {
+    display: flex;
+}
+.particular .particular_content #particular_poster_content .col {
+    flex: 1;
+    padding: 0 20px;
+    margin: 10px 10px 0 10px;
+    border: 1px solid #c9c9c9;
+    background: #eee;
+    position: relative;
+}
+.particular .particular_content #particular_poster_content .col .background_img {
+    width: 100%;
+    height: 100px;
+    background: aqua;
+}
+.particular .particular_content #particular_poster_content .col .background_time {
+    width: 85%;
+    position: absolute;
+    top: 40px;
+    display: flex;
+}
+.particular .particular_content #particular_poster_content .col .time {
+    flex: 1;
+}
+.particular .particular_content #particular_poster_content .col .creat_time {
+    width: 40px;
+    height: 15px;
+    line-height: 15px;
+    padding: 2px 10px;
+    background: rgba(27, 27, 27, 0.3);
+}
+.particular .particular_content .content_poster .poster_right {
+    width: 700px;
+    margin-left: 10px;
+}
+.particular .particular_content .content_poster .poster_right .right_img {
+    border: 1px solid #ccc;
+    background: #eee;
+}
+.particular .particular_content .content_poster .poster_right .poster_right_img_content {
+    height: 300px;
+    margin: 0 50px;
+    background: aqua;
+}
+.particular .particular_content .content_poster .poster_right .right_list {
+    height: 125px;
+    margin-top: 10px;
+    /* 暂时代替滚动条 */
+    overflow: auto;
+}
+
+/* 更改styleable_list */
+.particular .list_table .styleable_list_controls {
+    display: none;
+}
+.particular .list_table .styleable_list_col {
+    height: 30px;
+}

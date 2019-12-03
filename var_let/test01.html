@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>常量和局部变量</title>
+    <script>
+        function oddsums(n){
+            let total = 0, result = [];
+            for(let x = 1; x <= n; x++){
+                let odd = 2 * x - 1;
+                total += odd;
+                result.push(total);
+            }
+            // odd += 1;  //let定义局部变量，外部不能使用
+            return result;
+        }
+        console.log('oddsums(5)==',oddsums(5));  //[1,4,9,16,25]
+        o = {x:1,y:2};
+        for(let p in o){
+            console.log('p==',p);
+        };
+        if('p is not defined'){
+            console.log('p is not defined');
+        } else {
+            console.log('p==',p);
+        }
+        // 作用域内变量初始化
+        let x = 1;
+        for(x = x + 1; x < 9; x++){
+            console.log('x==',x);
+        }
+        // {
+            // let x = x + 1;     //不可在声明之前引用
+        //     console.log('x==',x);
+        // }
+        let a = 1,b = 2;
+        // let (a = a + 1,b = a + 2) {
+        //     console.log('a+b==',a + b);
+        // }
+        console.log('a+b==',a + b);
+        // let x1 = 1,y1 = 2;
+        // console.log('let()===', let (x1 = x1 + 1,y1 = x1 + 2), x1+y1);
+        {
+            let [x, y] = [1, 2];   // => let x = 1,y = 2
+            [x, y] = [x + 1, y + 1];  // => x = x+1,y = y+1
+            [x, y] = [y, x];       // => 交换变量的值
+            console.log([x, y]);
+        }
+        // 将直角坐标转换为极坐标
+        {
+            function polar(x, y){
+                return [Math.sqrt(x * x + y * y), Math.atan2(y, x)];
+            };
+            function cartesian(r, theta){
+                return [r * Math.cos(theta), r * Math.sin(theta)];
+            }
+            let [r, theta] = polar(1.0, 1.0);  
+            console.log('r==',r);  //r== Math.sqrt(2)
+            console.log('theta==',theta);  //theta== Math.PI/4
+            let [x, y] = cartesian(r,theta);
+            console.log('x==',x);  //x== 1
+            console.log('y==',y);  //y== 1
+        }
+
+    </script>
+</head>
+<body>
+    <!-- <div>button001</div>
+    <div>button002</div>
+    <div>button003</div>
+    <script>
+        var ddd = document.getElementsByTagName('div');
+        for(var i = 0; i < ddd.length; i++){
+            ddd[i].onclick = function(i){
+                alert(i);
+            }
+        }
+    </script> -->
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>封装自己的ajax</title>
+    <script src="myAjax.js"></script>
+    <script>
+        window.onload = function(){
+            //获取元素
+            var getContent = document.getElementById("getContent");
+            var container = document.getElementById("container");
+            //给元素添加单击事件处理函数
+            getContent.onclick = function (){
+                //使用自己封装的ajax函数发送一个post请求
+                // myAjax('get','http://baidu.com',{name:'张三',age:16},function(res){
+                //     console.log(res);
+                //     container.innerHTML = res.name;
+                // },'json');
+            };
+        }
+    </script>
+</head>
+<body>
+    <input type="button" id="getContent" value="点我获取内容" />
+    <div id="container">点击上面的按钮，我会变哦</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>梯形</title>
+    <style>
+        /* .front_div {
+            width: 200px;
+            height: 100px;
+        } */
+        /* .transform_div{
+            position: absolute;
+            width: 200px; 
+            height: 100px; 
+            transform: perspective(24px) rotateX(5deg);
+            background: -webkit-gradient(linear,0 0,0 bottom,  from(rgba(135, 236, 240, 0.7)),to(#ff8c11)); 
+            border-radius: 6px;
+        } */
+        /* .front_div{
+            position: relative;
+            display: inline-block;
+            padding: .5em 1em .35em;
+            color: white;
+        }
+        .front_div::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            background: #58a;
+            transform: perspective(.5em) rotateX(-5deg);
+            background: -webkit-gradient(linear,0 0,0 bottom, from(#7abeec),to(#56abe4));;
+        } */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .test {
+            width: 200px;
+            height: 100px;
+            /* border: 1px solid #ccc; */
+        }
+        .test01 {
+            border-bottom: 100px solid #ccc;
+            border-left: 50px solid transparent;
+            width: 0;
+            margin-right: -5px;
+            display: inline-block;
+        }
+        .test02 {
+            border-bottom: 100px solid #ccc;
+            border-right: 50px solid transparent;
+            width: 0;
+            margin-left: -5px;
+            position: relative;
+            left: 105px;
+            display: inline-block;
+        }
+        .test_content {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: #ccc;
+            position: absolute;
+            left: 50px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="front_div"> -->
+        <!-- <div class="transform_div">asdasds</div> -->
+        <!-- <div class="box"> -->
+                <!-- 内容  部分               -->
+        <!-- </div> -->
+    <!-- </div> -->
+    <!-- <div class="front_div"></div> -->
+    <!-- <div style="width: 0;height: 0;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;border-left: 1px solid #ccc;background: aqua;"></div>
+    <div> 121210351</div>
+    <div style="width: 0;height: 0;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;border-left: 1px solid #ccc;background: aqua;"></div> -->
+    <div class="test">
+        <div class="test01"></div>
+        <div class="test_content">1001</div>
+        <div class="test02"></div>
+    </div>
+</body>
+</html>

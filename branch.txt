@@ -1,0 +1,7 @@
+github_desktop  分之合并步骤
+    1.github new project
+    2.clone local(add github.com)
+    3.new branch
+    4.将主分支代码 放到master对应文件夹下并commit,
+    5.将分支代码放到branch对应文件夹下并commit,
+    6.merge into

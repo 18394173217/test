@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Digital Clock</title>
+    <style>
+        #clock {
+            width: 100px;
+            font: bold 24pt sans;
+            background: #ddf;
+            padding: 10px;
+            border: solid black 2px;
+            border-radius: 10px;
+        }
+    </style>
+    <script>
+        function displayTime(){
+            var elt = document.getElementById('clock');
+            var now = new Date();
+            console.log('now==',now)
+            elt.innerHTML = now.toLocaleTimeString();
+            setTimeout(displayTime, 1000);
+        };
+        window.onload = displayTime;
+    </script>
+</head>
+<body>
+    <h3>Digital Clock</h3>
+    <span id="clock"></span>
+</body>
+</html>

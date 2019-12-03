@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组比较</title>
+    <!-- 使用算法来查找全局变量污染问题 -->
+    <script>
+        // 通过对比window[key]值来进行比较
+        var windowReferContent = [],windowCurrentContent = [],windowLoginContent = [];
+        // 拿到登录前的window值
+        (function windowLogin(){
+            for(var item in window){
+                windowLoginContent.push(item)
+            }
+            windowReferContent = windowLoginContent;
+            // console.log('windowRefer==',windowRefer);
+        })();
+        // 选定参照window
+        function windowRefer(status){
+            if(status == 'login.window'){
+                windowReferContent = windowLoginContent;
+            } else if(status == 'current.window'){
+                windowCurrent();
+                windowReferContent = windowCurrentContent;
+                windowCurrentContent = [];
+            }
+            // console.log('windowReferContent==',windowReferContent);
+        };
+        // 拿到当前window
+        function windowCurrent(){
+            for(var item in window){
+                windowCurrentContent.push(item)
+            }
+            // console.log('windowCurrentContent==',windowCurrentContent);
+        };
+        // 比较window
+        function compareKey(){
+            windowCurrent();
+            for(var i = 0; i < windowCurrentContent.length; i++){
+                if (windowReferContent.indexOf(windowCurrentContent[i]) === -1) {
+                    console.log(windowCurrentContent[i]);
+                }
+            }
+            windowCurrentContent = [];
+        };
+        // 通过对比window[{key:value}]来进行比较
+        var windowValueReferContent = [],windowValueCurrentContent = [],windowValueLoginContent = [];
+        // 拿到登录前的windowValue值
+        (function windowValueLogin(){
+            for(var item in window){
+                windowValueLoginContent.push('{'+item+':'+window[item]+'}')
+            }
+            windowValueReferContent = windowValueLoginContent;
+            // console.log('windowValueReferContent==',windowValueReferContent);
+        })();
+        // 选定参照windowValue
+        function windowValueRefer(status){
+            if(status == 'login.windowValue'){
+                windowValueReferContent = windowValueLoginContent;
+            } else if(status == 'current.windowValue'){
+                windowValueCurrent();
+                windowValueReferContent = windowValueCurrentContent;
+                windowValueCurrentContent = [];
+            }
+            // console.log('windowValueReferContent==',windowValueReferContent);
+        };
+        // 拿到当前windowValue
+        function windowValueCurrent(){
+            for(var item in window){
+                windowValueCurrentContent.push('{'+item+':'+window[item]+'}')
+            }
+            // console.log('windowValueCurrentContent==',windowValueCurrentContent);
+        };
+        // 比较windowValue
+        function compareValue(){
+            windowValueCurrent();
+            for(var i = 0; i < windowValueCurrentContent.length; i++){
+                if (windowValueReferContent.indexOf(windowValueCurrentContent[i]) === -1) {
+                    console.log(windowValueCurrentContent[i]);
+                }
+            }
+            windowValueCurrentContent = [];
+        };
+    </script>
+    <style>
+        .compare_btns {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            z-index: 9999;
+        }
+        .compare_btn {
+            width: 130px;
+            height: 30px;
+            line-height: 30px;
+            margin: 2px;
+            text-align: center;
+            background: aqua;
+            display: inline-block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="compare_btns">
+        <div class="compare_btn" title="以登录前的window作为参照" onclick="windowRefer('login.window')">参照(login)</div>
+        <div class="compare_btn" title="以当前的window作为参照" onclick="windowRefer('current.window')">参照(current)</div>
+        <div class="compare_btn" onclick="compareKey()">比较key</div>
+    </div>
+    <div class="compare_btns" style="top: 90px;">
+        <div class="compare_btn" title="以登录前的window作为参照" onclick="windowValueRefer('login.window')">参照value(login)</div>
+        <div class="compare_btn" title="以当前的window作为参照" onclick="windowValueRefer('current.window')">参照value(current)</div>
+        <div class="compare_btn" onclick="compareValue()">比较key:value</div>
+    </div>
+</body>
+</html>
