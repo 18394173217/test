@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>function 参数</title>
+    <script>
+        function fun (obj, a){
+            console.log('obj===',obj);
+            if(a === undefined){
+                a = [];
+            };
+            for(var p in obj){
+                // console.log('p===',p);
+                a.push(obj[p]);
+            };
+            return a;
+        };
+        var o = [4,6,3,8,];
+        var res = fun(o);
+        console.log('res===',res);
+        var p = [3,3,4,5];
+        var a = [5,7,8,];
+        var res1 = fun(p, a);
+        console.log('res1===',res1);
+        function numberMax(){
+            var max = Number.NEGATIVE_INFINITY;
+            for(var i = 0;i < arguments.length; i++){
+                if(arguments[i] > max){
+                    max = arguments[i];
+                }
+            }
+            return max;
+        };
+        var largest = numberMax(1,2,4,10,100,200);
+        console.log('largest===',largest);
+        function max (obj){
+            var max = Number.NEGATIVE_INFINITY;
+            obj.forEach(i => {
+                if(i > max){
+                    max = i;
+                }
+            });
+            return max;
+        };
+        var largest = numberMax(1,2,4,10,100,200);
+        console.log('largest===',largest);
+        function f(x){
+            console.log('x===',x);
+            arguments[0] = null;
+            console.log('x===',x);
+        };
+        f(6);
+        var f = function(x){
+            if(x <= 1){
+                return 1;
+            }
+            return x * arguments.callee(x-1);  //arguments.callee 指代当前正在运行的函数；
+        }
+        console.log('f(5)===',f(5));
+        function arrayCopy(name,age,sex,info,length){}
+        function easycopy(objs){
+            arrayCopy(
+                objs.name,
+                objs.age,
+                objs.sex,
+                objs.info,
+            );
+            console.log('objs===',objs);
+        }
+        var a = [3,5,4],b = [];
+        easycopy({name:'001',age:'0',info:a});
+        console.log('===================');
+        function copy(obj){
+            console.log('obj===',obj);
+        }
+        var a = [3,5,4];
+        var obj = {
+            name:'001',
+            age: 20,
+            sex: 'man',
+            info: a,
+        }
+        copy(obj);
+        function isArrayLike(o){
+            if(
+                o && 
+                typeof o === 'object' &&
+                isFinite(o.length) &&
+                o.length >= 0 &&
+                o.length === Math.floor(o.length) &&
+                o.length < 4294967296
+            ){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function sum(a){
+            if(isArrayLike(a)){
+                var total = 0;
+                for(var i = 0; i < a.length; i++){
+                    var ele = a[i];
+                    if(ele == null){
+                        continue;
+                    };
+                    if(isFinite(ele)){
+                        total += ele;
+                    } else {
+                        throw new Error("sum(): ele must be finite numbers");
+                    }
+                    // return total;
+                    console.log('total===',a,total);
+                }
+            } else {
+                throw new Error("sum(): arguments must be array-like");
+            }
+        };
+        var a = [1,23,];
+        sum(a);
+        function flexisum(a){
+            var total = 0;
+            for(var i = 0; i < a.length; i++){
+                var elem = a[i], n;
+                if(elem == null){
+                    continue;
+                };
+                if(isArrayLike(elem)){
+                    n = flexisum.apply(this, elem);
+                } else if(typeof elem == 'function'){
+                    n = Number(elem());
+                } else {
+                    n = Number(elem);
+                };
+                if(isNaN(n)){
+                    throw Error('error');
+                }
+                total += n;
+            }
+            // return total;
+            console.log('total===',total);
+        }
+        flexisum("009");
+        flexisum(['1','9',4]);
+
+        var a = [function(x){ return x * x},20];
+        console.log('a[0](a[1])===',a[0](a[1]));
+        function add(x, y){
+            return x + y;
+        };
+        function subtract(x, y){
+            return x - y;
+        };
+        function multiply(x, y){
+            return x * y;
+        };
+        function devide(x, y){
+            return x / y;
+        };
+        function operate(operator, operand1, operand2){
+            return operator(operand1, operand2);
+        };
+        var i = operate(add, operate(add, 3, 4), operate(multiply, 4, 5));
+        console.log('i===',i);
+
+        var operators = {
+            add:function(x, y){
+                return x + y;
+            },
+            subtract:function (x, y){
+                return x - y;
+            },
+            multiply:function (x, y){
+                return x * y;
+            },
+            devide:function (x, y){
+                return x / y;
+            },
+            pow: Math.pow,  //幂运算
+        };
+        function operate2(operation, operand1, operand2){
+            if(typeof operators[operation] === 'function'){
+                return operators[operation](operand1,operand2);
+            } else {
+                throw "error";
+            }
+        };
+        var j = operate2('add','hello',operate2('add',' ','world'));
+        console.log('j===',j);
+        var k = operate2('pow', 10, 2);
+        console.log('k===',k);
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

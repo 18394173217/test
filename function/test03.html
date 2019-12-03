@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义函数属性 及 闭包</title>
+    <script>
+        // 查看函数调用次数
+        uniqueInteger.counter = 0;
+        function uniqueInteger (){
+            return uniqueInteger.counter ++;
+        }
+        uniqueInteger();
+        console.log('uniqueInteger.counter==',uniqueInteger.counter);
+        uniqueInteger();
+        console.log('uniqueInteger.counter==',uniqueInteger.counter);
+        uniqueInteger();
+        console.log('uniqueInteger.counter==',uniqueInteger.counter);
+        // 计算从 n 开始阶乘，将结果保存在函数属性中
+        function factorial(n){
+            if(isFinite(n) && n > 0 && n == Math.round(n)){
+                if(!(n in factorial)){
+                    factorial[n] = n * factorial(n-1);
+                }
+                console.log('factorial['+ n +']===',factorial[n]);
+                return factorial[n];
+            } else {
+                return NaN;
+            }
+        }
+        factorial[3] = 3;
+        factorial(5);
+        // 闭包
+        var scope = 'global scope';
+        function checkscope (){
+            var scope = 'local scope';
+            function f(){
+                return scope;
+            };
+            return f();
+        }
+        var scope = checkscope();
+        console.log('scope==',scope);
+        console.log('=====')
+        var scope = 'global scope';
+        function checkscope1 (){
+            var scope = 'local scope';
+            function f(){
+                return scope;
+            };
+            return f;
+        }
+        var scope = checkscope1()();
+        console.log('scope==',scope);
+        // 闭包中的 this 指向
+        var name = 'window';
+        var Object = {
+            name: 'myObject',
+            getName: function (){
+                var self = this;
+                return function(){
+                    console.log('getName内部的匿名函数中 this.name==',self.name);
+                    return self.name;
+                }
+            }
+        }
+        // 作用域链
+        function counter(){
+            var n = 2;
+            return {
+                count: function(){
+                    console.log('count,n==',n);
+                    return n++;
+                },
+                reset: function(){
+                    console.log('reset,n==',n);
+                    n = 0;
+                },
+            }
+        }
+        var c = counter(),d = counter();
+        console.log('c.count()==',c.count());  //2
+        console.log('d.count()==',d.count());  //2  //各自占有私有变量 n 不会互相影响
+        console.log('c.reset()==',c.reset());  //undefined  由于没有 return 任何值
+        console.log('d.reset()==',d.reset());  //undefined
+        console.log('c.count()==',c.count());  //0
+        console.log('d.count()==',d.count());  //3
+        // 闭包实现私有变量
+        console.log('==================');
+        function counter1(n){
+            return {
+                get count1(){
+                    return n++;
+                },
+                set count1(m){
+                    if(m >= n){
+                        n = m;
+                    } else {
+                        throw Error('error');
+                    }
+                },
+            };
+        };
+        var c = counter1(1000);
+        console.log('c.count1==',c.count1);  //1000
+        console.log('c.count1==',c.count1);  //1001
+        c.count1 = 2000;
+        console.log('c.count1==',c.count1);  //2000
+        // c.count1 = 2000;   // error
+        // 利用闭包实现私有属性存取器
+        function addPrivateProperty(o, name, predicate){
+            var value;
+            o["get" + name] = function(){
+                return value;
+            };
+            o["set" + name] = function(v){
+                if(predicate && !predicate(v)){
+                    throw Error('error')
+                } else {
+                    value = v;
+                }
+            }
+        }
+        var o = {};
+        addPrivateProperty(o, "Name", function(x){
+            return typeof x == 'string';
+        });
+        o.setName('Frank');
+        console.log('o.getName()==',o.getName());
+        // o.setName(0);
+        // 同一个作用域链中定义两个闭包
+        function constfunc(v){
+            return function(){
+                return v;
+            };
+        };
+        var funcs = [];
+        for(var i = 0; i < 10; i++){
+            funcs[i] = constfunc(i);
+        };0
+        console.log('funcs[5]==',funcs[5]);
+        console.log('funcs[5]()==',funcs[5]());
+        // 闭包 demo
+        console.log('====================');
+        function A() {
+            var i = 5;
+            return function() {
+                console.log('i = '+i);
+            }
+        }
+        var a = A();  //function(){}  此函数可以获取到外部函数的局部变量，外部函数的局部变量不会被回收
+        var aa = a();// i = 5
+
+        function A1(age) {
+            var name = 'songchang';
+            var sayHello = function() {
+                console.log('hello, '+name+', you are '+age+' years old!');
+            };
+            return sayHello;
+        }
+        var wind = A1(20);
+        wind();  // hello, songchang, you are 20 years old!
+        console.log('=================');
+        var fun1, fun2, fun3;
+        function Afun() {
+            var num = 42;
+            fun1 = function() { console.log(num); };
+            fun2 = function() { num++; };
+            fun3 = function() { num--; };
+        }
+        Afun();
+        fun1();   // 42
+        fun2(); 
+        fun2(); 
+        fun1();    // 44
+        fun3(); 
+        fun1();   //43
+        var old = fun1;
+        Afun();  
+        fun1();   // 42
+        old();   // 43   上一个闭包的fun1()
+
+        console.log('-----------------');
+        function buildArr(arr) {
+            var result = [];
+            for (var i = 0; i < arr.length; i++) {
+                result.push( (function(n) {
+                    return function() {
+                        var item = 'item' + n;
+                        console.log(item + ' ' + arr[n]);
+                    }
+                })(i));
+            }
+            return result;
+        }
+        var fnlist = buildArr([1,2,3]);
+        fnlist[0]();  //  item0 1
+        fnlist[1]();  //  item1 2
+        fnlist[2]();  //  item2 3
+        console.log('-----------------');
+        function buildArr1(arr) {
+            var result = [];
+            for (let i = 0; i < arr.length; i++) {
+                let item = 'item' + i;
+                result.push( function() {console.log(item + ' ' + arr[i])} );
+            }
+            return result;
+        }
+        
+        var fnlist = buildArr1([1,2,3]);
+        fnlist[0](); // item0 1
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

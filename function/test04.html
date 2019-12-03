@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数属性、方法和构造函数</title>
+    <script>
+        function check(args){
+            var actual = args.length;
+            var expected = args.callee.length;
+            if(actual !== expected){
+                throw Error('error');
+            }
+        }
+        function fun(x, y, z){
+            check(arguments);
+            return x + y + z;
+        }
+        var le = fun('x', 'y', 'z');
+        console.log('function.length==',le);
+        // var len = f('x', 'y');   // 传入参数不够，error
+        // console.log('function.length==',len);
+        // bind() 方法
+        function f(y){
+            console.log('this.x + y===',this.x + y);
+            return this.x + y;
+        };
+        var o = {x:3};
+        var g = f.bind(o);
+        console.log('g(2)==',g(2)) //5
+        console.log('-------------');
+        function bind(f, o){
+            console.log('f==',f);
+            console.log('o==',o);
+            if(f.bind){
+                return f.bind(o);
+            } else {
+                return function(){
+                    return f.apply(o, arguments);
+                }
+            }
+        };
+        console.log('-------------');
+        var sum = function(x, y){
+            return x + y;
+        };
+        var succ = sum.bind(null, 1);
+        console.log('succ(2)==',succ(2)) //3
+        function f(y, z){
+            console.log('this.x,y,z===',this.x,y,z); //1, 2, 5
+            return this.x + y + z;
+        };
+        var g = f.bind({x:1},2); 
+        console.log('g(5)==',g(5)); //6
+        // 构造函数
+        var f1 = new Function('x', 'y', 'return x * y;');
+        var f2 = function(x,y){ return x * y};
+        console.log('f1===',f1(2,3),f1); //6
+        console.log('f2===',f2(2,3),f2); //6
+
+        var scope = 'golbal';
+        function conFun (){
+            var scope = 'local';
+            return new Function('return scope');
+        }
+        console.log('conFun()()==',conFun()());  //golbal
+        function isFunction(x){  //x 为函数对象
+            return Object.prototype.toString.call(x) === "[object Function]";
+        }
+        // var isFun = isFunction();
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
