@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"
+    width="640"
+    height="480"
+    id="vlc" />
+    <script type="text/javascript">
+        var vlc = document.getElementById("vlc");
+        vlc.audio.toggleMute();
+    </script>
+ 
+    <embed autostart type="application/x-vlc-plugin" pluginspage="http://192.168.7.143:8080/Android_hzp/testVideo/test01.ts" />
+    <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://192.168.7.143:8080/Android_hzp/testVideo/test01.ts"></object>
+    <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://192.168.7.143:8080/Android_hzp/testVideo/test01.ts">
+        <param name="autostart" value="true" />
+        <param name="allowfullscreen" value="false" />
+    </object>
+    <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://192.168.7.143:8080/Android_hzp/testVideo/test01.ts" id="vlc">
+        <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" name="vlc" />
+    </object>
+    
+    <script type="text/javascript">
+        function registerVLCEvent(event, handler) {
+            var vlc = getVLC("vlc");
+            if (vlc) {
+                if (vlc.attachEvent) {
+                    // Microsoft
+                    vlc.attachEvent (event, handler);
+                } else if (vlc.addEventListener) {
+                    // Mozilla: DOM level 2
+                    vlc.addEventListener (event, handler, false);
+                }
+            }
+        }
+        // stop listening to event
+        function unregisterVLCEvent(event, handler) {
+            var vlc = getVLC("vlc");
+            if (vlc) {
+                if (vlc.detachEvent) {
+                    // Microsoft
+                    vlc.detachEvent (event, handler);
+                } else if (vlc.removeEventListener) {
+                    // Mozilla: DOM level 2
+                    vlc.removeEventListener (event, handler, false);
+                }
+            }
+        }
+        // event callbacks
+        function handle_MediaPlayerNothingSpecial(){
+            alert("Idle");
+        }
+        function handle_MediaPlayerOpening(){
+            alert("Opening");
+        }
+        function handle_MediaPlayerBuffering(val){
+            alert("Buffering: " + val + "%");
+        }
+        function handle_MediaPlayerPlaying(){
+            alert("Playing");
+        }
+        function handle_MediaPlayerPaused(){
+            alert("Paused");
+        }
+        function handle_MediaPlayerStopped(){
+            alert("Stopped");
+        }
+        function handle_MediaPlayerForward(){
+            alert("Forward");
+        }
+        function handle_MediaPlayerBackward(){
+            alert("Backward");
+        }
+        function handle_MediaPlayerEndReached(){
+            alert("EndReached");
+        }
+        function handle_MediaPlayerEncounteredError(){
+            alert("EncounteredError");
+        }
+        function handle_MediaPlayerTimeChanged(time){
+            alert("Time changed: " + time + " ms");
+        }
+        function handle_MediaPlayerPositionChanged(val){
+            alert("Position changed: " + val);
+        }
+        function handle_MediaPlayerSeekableChanged(val){
+            alert("Seekable changed: " + val);
+        }
+        function handle_MediaPlayerPausableChanged(val){
+            alert("Pausable changed: " + val);
+        }
+        function handle_MediaPlayerMediaChanged(){
+            alert("Media changed");
+        }
+        function handle_MediaPlayerTitleChanged(val){
+            alert("Title changed: " + val);
+        }
+        function handle_MediaPlayerChapterChanged(val){
+            alert("Chapter changed: " + val);
+        }
+        function handle_MediaPlayerLengthChanged(val){
+            alert("Length changed: " + val + " ms");
+        }
+        function handle_MediaPlayerVout(val){
+            alert("Number of video output changed: " + val);
+        }
+        function handle_MediaPlayerMuted(){
+            alert("Audio volume muted");
+        }
+        function handle_MediaPlayerUnmuted(){
+            alert("Audio volume unmuted");
+        }
+        function handle_MediaPlayerAudioVolume(volume){
+            alert("Audio volume changed: " + Math.round(volume * 100) + "%");
+        }
+        // Register a bunch of callbacks.
+        registerVLCEvent("MediaPlayerNothingSpecial", handle_MediaPlayerNothingSpecial);
+        registerVLCEvent("MediaPlayerOpening", handle_MediaPlayerOpening);
+        registerVLCEvent("MediaPlayerBuffering", handle_MediaPlayerBuffering);
+        registerVLCEvent("MediaPlayerPlaying", handle_MediaPlayerPlaying);
+        registerVLCEvent("MediaPlayerPaused", handle_MediaPlayerPaused);
+        registerVLCEvent("MediaPlayerStopped", handle_MediaPlayerStopped);
+        registerVLCEvent("MediaPlayerForward", handle_MediaPlayerForward);
+        registerVLCEvent("MediaPlayerBackward", handle_MediaPlayerBackward);
+        registerVLCEvent("MediaPlayerEndReached", handle_MediaPlayerEndReached);
+        registerVLCEvent("MediaPlayerEncounteredError", handle_MediaPlayerEncounteredError);
+        registerVLCEvent("MediaPlayerTimeChanged", handle_MediaPlayerTimeChanged);
+        registerVLCEvent("MediaPlayerPositionChanged", handle_MediaPlayerPositionChanged);
+        registerVLCEvent("MediaPlayerSeekableChanged", handle_MediaPlayerSeekableChanged);
+        registerVLCEvent("MediaPlayerPausableChanged", handle_MediaPlayerPausableChanged);
+        registerVLCEvent("MediaPlayerMediaChanged", handle_MediaPlayerMediaChanged);
+        registerVLCEvent("MediaPlayerTitleChanged", handle_MediaPlayerTitleChanged);
+        registerVLCEvent("MediaPlayerChapterChanged", handle_MediaPlayerChapterChanged);
+        registerVLCEvent("MediaPlayerLengthChanged", handle_MediaPlayerLengthChanged);
+        registerVLCEvent("MediaPlayerVout", handle_MediaPlayerVout);
+        registerVLCEvent("MediaPlayerMuted", handle_MediaPlayerMuted);
+        registerVLCEvent("MediaPlayerUnmuted", handle_MediaPlayerUnmuted);
+        registerVLCEvent("MediaPlayerAudioVolume", handle_MediaPlayerAudioVolume);
+        </script>
+</body>
+</html>

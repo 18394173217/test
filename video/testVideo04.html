@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>testVideo04</title>
+    <script type="text/javascript">
+        window.onload = function(){
+           
+        }
+    </script>
+    <style>
+        .video {width: 1270px;height: 720px;}
+    </style>
+</head>
+<body>
+    <div class="video">
+            <!-- src="https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1920x1080h.mp4" -->
+            <!-- src="http://192.168.7.143:8080/Android_hzp/testVideo/test01.ts" -->
+        <!-- <embed class="video"
+        src="http://192.168.7.143:8080/Android_hzp/testVideo/test01.ts"
+        type="application/x-shockwave-flash"
+        allowfullscreen="true" autoplay="true" autostart="true"/> -->
+        <!-- <embed class="video" type="application/x-vlc-plugin" pluginspage="http://192.168.7.143:8080/Android_hzp/testVideo/test01.ts" /> -->
+    </div>
+    <div class="video" id="scrollDiv">
+            <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" id='vlc-parent'>
+            <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" version="VideoLAN.VLCPlugin.2"
+            width="320"
+            height="240"
+            autoplay="false"
+            id="vlc" name="vlc" target="upload/<s:property value="storePath"/>">
+            </embed>
+            </object>
+            </div>
+</body>
+</html>
