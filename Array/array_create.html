@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>创建数组及数组定义</title>
+</head>
+<body>
+	<script>
+		var my_array01 = new Array()
+		my_array01[0] = '0000';
+		my_array01[1] = '1111';
+		my_array01[3] = '33333'
+		console.log('my_array01==', my_array01);
+		var my_array02 = new Array(3)
+		my_array02[1] = '1111';
+		console.log('my_array02==', my_array02);
+		my_array02[4] = '444444';
+		my_array02[6] = '66666';
+		console.log('my_array02==', my_array02);
+		var my_array03 = Array(5);
+		my_array03[2] = '22222';
+		console.log('my_array03==', my_array03);
+
+		var my_array04 = {
+			'0': '0000',
+			'1': '11111',
+			'3': '33333',
+			length: 3
+		};
+		var my_array05 = [3, 5, 7, 8];
+		console.log(Array.from(my_array04));  //['0000', '1111', undefined]
+		console.log(my_array04);
+		console.log(Array.from(my_array05));  // [3, 5, 7, 8]
+		console.log(my_array05);
+		var str = 'string';
+		console.log(Array.isArray(my_array04));  //false
+		console.log(Array.isArray(my_array05));  //true
+		console.log(Array.isArray(str));         //false
+		var my_array06 = Array.of('000', 1, {'0':'222'});
+		console.log('my_array06==', my_array06);
+		var arr01 = [1, 2, 3, 4];
+		if(!Array.indexOf){
+			Array.prototype.indexOf = function (obj){
+				var i = this.length;
+				while(i -= 1){
+					if(this[i] == obj){
+						return i;
+					}
+				}
+				return -1;
+			}
+		}
+		console.log(arr01.indexOf(4));  //3
+		var arr02 = [111, 222, 333, 4444, 555];
+		console.log('arr02[1]==', arr02[1]);
+		console.log('arr02[1]==', arr02['555']);
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数式编程</title>
+</head>
+<body>
+	<script>
+		//纯函数
+		let value_01 = 1;
+		function test_01 (){
+			value_01 = value_01 + 1;
+			console.log('fun_value_01==', value_01);
+		}
+		console.log('value_01==', value_01);
+
+		let value_02 = 1;
+		function test_02 (value){
+			value_02 = value + 1;
+			console.log('fun_value_02==', value_02);
+		}
+		test_02(value_02);
+		console.log('value_02==', value_02);
+
+		let value_03 = 1;
+		const test_03 = (value) => {
+			return value + 2;
+		};
+		console.log('fun_value_03==', test_03(value_03));
+		console.log('value_03==', value_03);
+		console.log('======================');
+		var arr01 = [1,2,3,4,5];
+		var arr02 = arr01.map((n) => {return n * n});
+		console.log('arr01==',arr01);
+		console.log('arr02==',arr02);
+		console.log('arr==',arr);
+		var arr = [1,2,3];
+		console.log('arr==',arr);
+		var arr = [3,6,9];
+		console.log('arr==',arr);
+		arr = [2,2,2];
+		console.log('arr==',arr);
+
+		// 不可变性
+		// 循环
+		var arr03 = [1,2,3,4,5];
+		var sum_arr03 = 0;
+		for (var i = 0; i < arr03.length; i++){
+			sum_arr03 += arr03[i];
+		}
+		console.log('sum==',sum_arr03);
+		// 遍历
+		var arr04 = [1,2,3,4,5];
+		var sum_arr04 = 0;
+		function sum_test (arr04, sum_arr04){
+			if(arr04.length == 0){
+				return sum_arr04;
+			}
+			return sum_test(arr04.slice(1), sum_arr04 + arr04[0]);
+		}
+		console.log(sum_test(arr04, sum_arr04));
+		console.log('arr04==', arr04);
+		console.log('sum_arr04==', sum_arr04);
+
+		const string = "I will be a url slug"
+		const slugify = (string) => {
+			string = string.toLowerCase().trim().split(" ").join('-');
+			// toLowerCase()  将字符转全部转换为小写字母
+			// trim()  删除字符串两端的空白
+			// split() join() 用以给字符串中的替换位置替换匹配的实例
+			console.log('string==',string);
+		}
+		slugify(string);
+		// 不完全函数
+		function myParseInt (base){
+			return function (str){
+				return parseInt(str, base);
+			}
+		}
+		const parseInt10 = myParseInt(10);
+		console.log(parseInt10('123'));
+
+		// Function.prototype.newBind(target){
+		// 	var target = target || window;
+		// 	var self = this;
+		// 	var args = [].slice.call(arguments, 1);
+		// 	var temp = function (){};
+		// 	var F = function (){
+		// 		var _args = [].slice.call(arguments, 0);
+		// 		return self.apply( this instanceof temp ? this : target, args.concat(_args));
+		// 	}
+		// 	temp.prototype = this.prototype;
+		// 	F.prototype = new temp();
+		// 	return F;
+		// };
+		// function show (name, age){
+		// 	console.log(name);
+		// 	console.log(age);
+		// }
+		// var newShow = show.newBind(null, 'text');
+		// newShow(18);
+		var clientData = {
+			id: 1024,
+			fullName: "Not Set",
+			setUserName: function (firstName, lastName){
+				this.fullName = firstName + " " + lastName
+			}
+		}
+		function getUserInput (firstName, lastName, callback){
+			callback(firstName, lastName);
+		}
+		getUserInput('aaa', 'bbb', clientData.setUserName);
+		console.log(clientData.setUserName);
+		console.log(window.fullName);
+
+		// 回调地狱
+		/*
+		var p_client = new Db('integration_tests_20', new Server("127.0.0.1", 27017, {}), {'pk':CustomPKFactory});
+	    p_client.open(function(err, p_client) {
+	        p_client.dropDatabase(function(err, done) {
+	            p_client.createCollection('test_custom_key', function(err, collection) {
+	                collection.insert({'a':1}, function(err, docs) {
+	                    collection.find({'_id':new ObjectID("aaaaaaaaaaaa")}, function(err, cursor) {
+	                        cursor.toArray(function(err, items) {
+	                           test.assertEquals(1, items.length);
+	                           // Let's close the db
+	                           p_client.close();
+	                        });
+	                    });
+	                });
+	            });
+	        });
+	    });
+	    */
+	</script>
+</body>
+</html>

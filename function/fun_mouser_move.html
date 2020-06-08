@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标拖动</title>
+	<style>
+        div{
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+	<div></div>
+	<script>	    
+	    var divs = document.querySelector('div');//获取需要拖拽的元素	
+	    divs.onmousedown = function(event){    //元素的鼠标落下事件
+	        var x1 = event.clientX;	        //获取鼠标按下的坐标
+	        var y1 = event.clientY;
+	        var l = divs.offsetLeft;	        //获取元素的left，top值
+	        var t = divs.offsetTop;
+	        document.onmousemove = function(event){	        //给可视区域添加鼠标的移动事件
+	            var x2 = event.clientX;            //获取鼠标移动时的坐标
+	            var y2 = event.clientY;
+	            var x = x2-x1;	            //计算出鼠标的移动距离
+	            var y = y2-y1;
+	            var lt = y+t;	            //移动的数值与元素的left，top相加，得出元素的移动的距离
+	            var ls = x+l;
+	            divs.style.top = lt+'px';	            //更改元素的left，top值
+	            divs.style.left = ls+'px';
+	            console.log('鼠标左键按下移动过程中鼠标光标相对于浏览器的位置==', event.clientX, event.clientY);     
+	        }	        //清除
+	        document.onmouseup = function(event){
+	        	document.onmousemove = null;
+	        }	    
+	    }	
+	</script>
+</body>
+</html>

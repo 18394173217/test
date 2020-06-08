@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>回调函数</title>
+</head>
+<body>
+	<script>
+		//  回调函数
+		add(1)(2)(3);   //6
+		function add(num1){
+			return function (num2){
+				return function (num3){
+					return num1 + num2 + num3;
+				}
+			}
+		}
+		console.log(add(1)(2)(3));
+
+		add_01(1)(2)(3);   //6
+		add_01(1)(2)(3)(4);   //10
+		add_01(1)(2)(3)(4)(5);   //15
+		function add_01(){
+			let args = [].slice.call(arguments);
+			let adder = function (){
+				let adder_test = function (){
+					[].push.apply(args, [].slice.call(arguments));
+					return adder_test;
+				}
+				adder_test.toString = function (){
+					return args.reduce(function (a, b){
+						return a + b;
+					});
+				}
+				return adder_test;
+			}
+			return adder(args);
+		}
+		console.log('3==', add_01(1)(2)(3));
+		console.log('4==', add_01(1)(2)(3)(4));
+		console.log('5==', add_01(1)(2)(3)(4)(5));
+	</script>
+</body>
+</html>

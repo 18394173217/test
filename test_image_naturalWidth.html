@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取图片的原始宽高</title>
+</head>
+<body>
+	<!-- <div id="img_test" style="width: 100px;height: 100px;"></div> -->
+	<!-- <script>
+		var image_url = 'http://mediascreening-beijing.oss-cn-beijing.aliyuncs.com/RESULT%2F9ab7e572-05f5-11ea-a16f-025dc917f992%2Flogo%2Ff00120.jpg';
+		document.getElementById('img_test').style.backgroundImage = 'url('+ image_url +')'
+		var img_width = document.getElementById('img_test').naturalWidth;
+		var img_height = document.getElementById('img_test').naturalHeight;
+		console.log('width==',img_width);
+		console.log('height==',img_height);
+	</script> -->
+	<script>
+		var image_url = 'http://mediascreening-beijing.oss-cn-beijing.aliyuncs.com/RESULT%2F9ab7e572-05f5-11ea-a16f-025dc917f992%2Flogo%2Ff00120.jpg';
+		let img = new Image();
+		img.src = image_url;
+		img.onload = function() {   //只能在onload函数中获取到，外部可能获取不到，因为onload函数还没执行结束
+			console.log('width=='+img.width+', height=='+img.height);
+		}
+		// var image_obj = this.imageOnload(image_url);
+		// console.log('image_obj==',image_obj);
+	 //    // 计算图片宽高
+	 //    function imageOnload(url) {
+	 //      var image_width, image_height, image_obj;
+	 //      var img = new Image();
+	 //      img.src = image_url;
+	 //      img.onload = function() {
+	 //        image_width = img.width;
+	 //        image_height = img.height;
+	 //        console.log('width=='+img.width+', height=='+img.height);
+	 //      }
+	 //      image_obj = {
+	 //        width: image_width,
+	 //        height: image_height        
+	 //      }
+	 //      return image_obj;
+	 //    }
+	</script>
+</body>
+</html>

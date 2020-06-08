@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>严格模式下的this指向</title>
+	<script>
+		'use strict'
+		console.log(this);
+		function test() {
+			console.log(this);
+		}
+		test();
+		var obj = {
+			fn: function (){
+				// return this;
+				return this.name;
+			}
+		}
+		obj.name = 'obj_name'
+		console.log(obj.fn());
+		var Test_fun = new function (){
+			this.name = 'Test_fun_name';
+			return this.name;
+		}
+		console.log(Test_fun.name);
+	</script>
+</head>
+<body>
+	<button onclick="alert((function(){'use strict'; return this})());">
+	内联事件处理1
+	</button>
+	<!-- 警告窗口中的字符为undefined -->
+	 
+	<button onclick="'use strict'; alert(this.tagName.toLowerCase());">
+	内联事件处理2
+	</button>
+	<!-- 警告窗口中的字符为button -->
+</body>
+</html>

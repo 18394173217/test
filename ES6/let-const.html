@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>let或const</title>
+	<script>
+		var a = [];
+		for(var i = 0; i < 10; i++) {
+			a[i] = function() {
+				console.log(i);
+			}
+		}
+		a[4]();   // 10
+
+		var a = [];
+		for(let i = 0; i < 10; i++) {
+			a[i] = function() {
+				console.log(i);
+			}
+		}
+		a[4]();   // 4
+
+		for(let i = 0; i < 3; i++){
+			let i = 'children_i';
+			console.log(i);
+		}
+		// children_i * 3
+
+		function f() {
+			console.log('outside');
+		}
+		(function() {
+			if(false) {
+				function f() {
+					console.log('inside');
+				}
+			}
+			// f();   // f is not a function
+		})()
+
+		{
+			let a = 'test_a_f1';
+			function f1() {
+				return a;
+			}
+			// console.log(f1());   // test_a_f1
+		}
+		console.log(f1());   // test_a_f1
+
+		{
+			let a = 'test_a_f2';
+			f2 = function() {
+				return a;
+			}
+			// console.log(f2());   // test_a_f2
+		}
+		console.log(f2());   // test_a_f2
+		// 彻底冻结对象的函数
+		var constantize = (obj) => {
+			Object.freeze(obj);
+			Object.keys(obj).forEach( (key, i) => {
+				if ( typeof obj[key] === 'object' ) {
+					constantize( obj[key] );
+				}
+			});
+		};
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

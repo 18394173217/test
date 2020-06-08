@@ -1,0 +1,49 @@
+<div class="_frame _flex" id="channel_tag">
+	<link rel="stylesheet" href="style/dialog.css">
+	<link rel="stylesheet" href="style/frame.css">
+	<link rel="stylesheet" href="content/channel/tag/main.css">
+  	<div class="header _flex">
+	    <div class="header_item logo">{{CHANNEL_CATEGORY_TAG}}</div>
+	    <div class="header_item search_bar">
+		    <input type="text" class="search_input">
+		    <div class="search_btn"></div>
+	    </div>
+	    <div class="header_item span"></div>
+	    <div class="header_item btn">{{CHANNEL_CATEGORY_TAG_BTN_CREATE}}</div>
+	</div>
+	<div class="body">
+	    <div class="list_table" id="channel_tag_list_table"></div>
+	</div>
+	<div class="list_table table_footer">
+		<table style="display: inline-table;">
+			<tbody>
+				<tr>
+					<td>转到:</td>
+					<td>
+						<input type="text" styledlistfunc="navInput" style=""></td>
+					<td>页，</td>
+					<td>第</td>
+					<td styledlistfunc="curPage">1</td>
+					<td>页，</td>
+					<td>共</td>
+					<td styledlistfunc="totPage">3</td>
+					<td>页</td>
+					<td styledlistfunc="prevPage">
+						<div class="prevPage"></div>
+							<!-- <svg width="16" height="16">
+								<rect width="16" height="16" style="fill:#0099CB"></rect>
+								<polygon points="11,4 4,8 11,12" style="fill:#ffffff"></polygon>
+							</svg> -->
+					</td>
+					<td styledlistfunc="nextPage">
+						<div class="nextPage"></div>
+							<!-- <svg width="16" height="16">
+								<rect width="16" height="16" style="fill:#0099CB"></rect>
+								<polygon points="5,4 12,8 5,12" style="fill:#ffffff"></polygon>
+							</svg> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

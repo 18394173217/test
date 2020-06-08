@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css 实现对话框</title>
+	<style> 
+		/*<!-- 制作四边形-->*/ 
+		.box{ margin-left: 50px; width: 200px; height: 60px; border:1px solid #333333; position: relative; } 
+		/*实心三角形*/ 
+		.box:before{ position: absolute; left: -20px; top: 10px; border-right: 20px solid #333333 ; border-top: 20px solid transparent; border-bottom: 20px solid transparent; } 
+		/*空心三角形*/ 
+		.box:after{ position: absolute; left: -19px; top: 11px; border-right: 19px solid white ; border-top: 19px solid transparent; border-bottom: 19px solid transparent; } 
+	</style>
+</head>
+<body>
+	<!--原理：-->
+	<!--1.使用定位-->
+	<!--2.：before：after-->
+	<!--3.制作带颜色的三角形-->
+	<!--4.制作白色的三角形
+	5.利用left top的值改变位置达到空心三角形的效果-->
+	<div class="box"></div>
+</body>
+</html>

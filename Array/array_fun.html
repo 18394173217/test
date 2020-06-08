@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组的方法</title>
+</head>
+<body>
+	<script>
+		// Array.from()
+		var obj_01 = {
+			'0': '0000',
+			'1': '11111',
+			'name': 'hzp',
+			'age': '22'
+		}
+		var arr01 = Array.from(obj_01);
+		console.log('obj_01==',obj_01);
+		console.log('arr01==',arr01);
+		var obj_02 = {
+			'0': '0000',
+			'1': '11111',
+			'name': 'hzp',
+			'age': '22',
+			'6': '6666',
+			'length': '3'
+		}
+		var arr02 = Array.from(obj_02);
+		console.log('arr02==',arr02);
+		var obj_03 = {
+			'false': '0000',
+			'6': '6666',
+			'1': '11111',
+			'6': '7777',
+			'name': 'hzp',
+			'age': '22',
+			length: 8
+		}
+		var arr03 = Array.from(obj_03);
+		console.log('arr03==',arr03);
+		var obj_04 = [1, 2 ,3 ,1 , 4, 2];
+		console.log('obj_04==',obj_04);
+		var arr04 = new Set(obj_04);   //new Set用于做数组的去重
+		console.log('arr04==',arr04);   
+		console.log('typeof(arr04)==',typeof(arr04));   //object
+		console.log('arr04[2]==',arr04[2]);   //undefined
+		var arr04_01 = Array.from(arr04);
+		console.log('arr04_01',arr04_01);
+		console.log('typeof(arr04_01)==',typeof(arr04_01));   //object
+		console.log('arr04_01[2]',arr04_01[2]);    //3
+		var obj_05 = [0, 1, 2, 3];
+		console.log('obj_05==',obj_05);
+		var arr05 = Array.from(obj_05, i => i * i);
+		console.log('arr05==',arr05);
+		var obj_06 = 'this is a string';
+		console.log(obj_06);
+		var arr06 = Array.from(obj_06);
+		console.log('arr06==',arr06);
+		if(!Array.isArray){
+			Array.isArray = function (arg){
+				return Object.prototype.toString.call(arg) === '[object Array]';
+			};
+		}
+		var arr07 = [1,2,3];
+		console.log(Array.isArray(arr07));   //true
+		var arr08 = Array.of('aaaaa',22,33,'ddddd');
+		console.log('arr08==',arr08);
+		console.log('arr08.toString()==',arr08.toString());
+		console.log('arr08.valueOf()==',arr08.valueOf());
+		console.log('======================');
+		var arr_test = [1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1];
+		// 数组遍历 for循环
+		for(var i = 0; i < arr_test.length; i++){
+			console.log('arr_test[' + i + ']', arr_test[i]);
+		}
+		console.log('===========');
+		// 数组遍历 for in
+		for(item in arr_test){
+			console.log('arr_test[' + item + ']', arr_test[item]);
+		}
+		console.log('====------------====');
+		// 数组遍历 forEach()
+		arr_test.forEach(function (x){
+			console.log('arr_test[' + x + ']', arr_test[x]);
+		});
+		console.log('-------------------------------');
+		var arr10 = [[1.1, 1.2, 1.3], [2.1, 2.2, 2.3], [3.1, 3.2, 3.3]];
+		console.log('arr10==',arr10);
+		console.log('arr10[1][2]==',arr10[1][2]);
+		var arr11 = [{name: 'sh', city: '上海'}, {name: 'bj', city: '北京'}];
+		console.log('arr11==',arr11);
+		console.log('arr11[1].name==',arr11[1].name);
+		console.log('arr11[1].city==',arr11[1].city);
+		var arr12 = [{name: 'sh', city: ['上海111', '上海2222', '上海3333']}]
+		console.log('arr12==',arr12);
+		console.log('arr12[0].name==',arr12[0].name);
+		console.log('arr12[0].city[1]==',arr12[0].city[1]);
+		console.log('--------');
+		// 将多为数组转换成一维数组
+		// 转为字符型，再利用','分隔
+		var arr13 = [1,2,[3,4,['a',[5,'c']]],5,6];
+		console.log('arr13==',arr13);
+		var arr14 = arr13.toString().split(',');
+		console.log('arr14==',arr14);
+		// 递归
+		var arr15 = [1,2,[3,4,['a',[5,'c']]],5,6];
+		var arr16 = [];
+		function fun(arr15){
+	        for(var i=0;i<arr15.length;i++){
+	            if(Array.isArray(arr15[i])){
+	                fun(arr15[i]);
+	            }else{
+	                arr16.push(arr15[i]);
+	            }
+	        }
+	    }
+		fun(arr15);
+		console.log(arr16);  //[1, 2, 3, 4, "a", 5, "c", 5, 6]
+		// reduce 递归
+		'use strict';
+	    var arr17 = [1,2,[3,4,['a',[5,'c']]],5,6];
+		const reduce_arr = arr17 => arr17.reduce(
+	            (acc,val) => acc.concat(Array.isArray(val)? reduce_arr(val):val),[]
+	    );
+	    console.log(reduce_arr(arr17));//[1, 2, 3, 4, "a", 5, "c", 5, 6]
+
+		// const reduce_arr = function (arr){
+		// 	arr.reduce(function (total_arr, value){
+		// 		if(Array.isArray(value)){
+		// 			total_arr.concat(reduce_arr(value));
+		// 		} else {
+		// 			total_arr.concat(value);
+		// 		}
+		// 	}, [])
+		// }
+		// console.log('total_arr==',reduce_arr(arr17));
+		console.log('====================');
+		// 数组的方法
+		var arr18 = [1,2,[3,4,['a',[5,'c']]],5,6];
+		console.log(arr18.join());   //1,2,3,4,a,5,c,5,6
+		console.log(arr18.join(''));  //123,4,a,5,c56
+		console.log(arr18.join(','));  //1,2,3,4,a,5,c,5,6
+		console.log(arr18.join(' '));  //1 2 3,4,a,5,c 5 6
+		console.log(arr18.toString());  //1,2,3,4,a,5,c,5,6
+	    var arr19 = [1,2,[3,4,['a',[5,'c']]],5,6];
+		console.log(arr19.reverse());
+		console.log(arr19.join());
+		console.log(arr19.reverse().join());
+		console.log('=============')
+		var arr20 = [1,3,[0,3,['f',[5,'c', 'a']]],5,3];
+		console.log(arr20.join());
+		console.log(arr20.sort().join());
+		console.log('---------------');
+		var arr21 = [0,2,4,7,'112asda',2,3,'aa12',432,'aa',56,3,false,2324234,46,true,3643,2342];
+		console.log('arr21==',arr21);
+		// 将所有元素转换为Number型
+		var arr22 = [];
+		for(var i = 0; i < arr21.length; i++){
+			if(typeof(arr21[i]) == 'number'){
+				arr22.push(Number(arr21[i]));
+			}
+		}
+		console.log('arr22==',arr22);
+		console.log('arr21.sort()==',arr21.sort());
+		 console.log('将所有Number型元素排序===',arr22.sort(function (a, b){
+			// return a - b;
+			return b - a;
+		}));
+		// 将所有元素转换成字符型
+		var arr23 = [];
+		for(var i = 0; i < arr21.length; i++){
+			arr23.push(String(arr21[i]));
+		}
+		console.log('arr23==',arr23);
+		console.log('arr21.sort()==',arr21.sort());
+		console.log('arr23.sort()==',arr23.sort());
+		console.log('--------------');
+		var arr24 = [1,3,[0,3,['f',[5,'c', 'a']]],5,3];
+		var arr25 = [0,2,4,7,'112asda',2,3,'aa12',432,'aa',56,3,false,2324234,46,true,3643,2342];
+		console.log('arr24==',arr24);
+		console.log('arr24.concat(arr25)==',arr24.concat(arr25));
+		console.log('arr24==',arr24);
+		console.log('arr24.concat([1,1,1,1,1,1])==',arr24.concat([1,1,1,1,1,1]));
+		console.log('arr24[2]==',arr24[2]);
+		var arr25 = arr24[2].concat([1,1,1,1,1,1]);
+			arr24[2] = arr25;
+		console.log('arr24==',arr24);
+		console.log('arr24.concat("test", "tttt", true)==',arr24.concat('test', 'tttt', true));
+		var obj01 = {name: 'test'};
+		console.log('arr24.concat(obj01)==',arr24.concat(obj01));
+		console.log('--------------');
+		var arr26 = [1,3,[0,3,['f',[5,'c', 'a']]],5,3];
+		console.log('arr26.slice()',arr26.slice());
+		console.log('arr26.slice(2)',arr26.slice(2));
+		console.log('arr26.slice(-2)',arr26.slice(-2));
+		console.log('arr26.slice(2, 4)',arr26.slice(2, 4));
+		console.log('arr26.slice(2, 4)',arr26.slice(2, 14));
+		console.log('arr26.slice(4, 2)',arr26.slice(4, 2));
+		console.log('arr26.slice(-2, -4)',arr26.slice(-2, -4));
+		console.log('arr26.slice(-4, -2)',arr26.slice(-4, -2));
+		console.log('--------------');
+		var arr27 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr27.splice(4)==', arr27.splice(4));
+		console.log('arr27==', arr27);
+		var arr27 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr27.splice(2, 0)==', arr27.splice(2, 0));
+		console.log('arr27==', arr27);
+		var arr27 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr27.splice(2, 3)==', arr27.splice(2, 3));
+		console.log('arr27==', arr27);
+		var arr27 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr27.splice(2, 3, 111, 111, 111)==', arr27.splice(2, 3, 111, 111, 111));
+		console.log('arr27==', arr27);
+		console.log('--------------');
+		var arr28 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr28.push(111,222,333)==', arr28.push(111,222,333));
+		console.log('arr28==', arr28);
+		console.log('arr28.pop()==', arr28.pop());
+		console.log('arr28==', arr28);
+		console.log('--------------');
+		var arr28 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr28.unshift(111,222,333)==', arr28.unshift(111,222,333));
+		console.log('arr28==', arr28);
+		console.log('arr28.shift()==', arr28.shift());
+		console.log('arr28==', arr28);
+		console.log('--------------');
+		var arr29 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr29==', arr29);
+		console.log('arr29.toString()==', arr29.toString());
+		console.log('arr29.toLocaleString()==', arr29.toLocaleString());
+		console.log('--------------');
+		var arr30 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr30==', arr30);
+		arr30.forEach(function(i, index, arr){
+			console.log('forEach()==', 'arr30[' + index + ']==' + i * i);
+		});
+		console.log('arr30==', arr30);
+		console.log('--------------');
+		var arr31 = [0,1,2,3,4,5,6,7,8,9];
+		console.log('arr31==', arr31);
+		console.log('arr31.map()==', arr31.map(function(i){ return i * i; }));
+		console.log('arr31==', arr31);
+		console.log('--------------');
+		var arr32 = [1, ,null,,3,4,,undefined,5,7];
+		console.log('arr32==', arr32);
+		console.log('arr32.filter()==', arr32.filter(function(){ return true }));
+		console.log('arr32.filter(undefined)==', arr32.filter(function(x){ return x != null && x != undefined }));
+		console.log('arr32==', arr32);
+		var arr33 = [1,2,3,4,5,6];
+		console.log('arr33.every(true)==', arr33.every(function(x){ return true }));
+		console.log('arr33.every()==', arr33.every(function(x){ return x > 5 }));
+		console.log('arr33.some()==', arr33.some(function(x){ return x > 5 }));
+		var arr34 = [1,2,3,4,5,6,7,8];
+		console.log('arr34==',arr34);
+		console.log('arr34.indexOf(4)==', arr34.indexOf(4));
+		console.log('arr34.indexOf(4, 6)==', arr34.indexOf(4, 6));
+		console.log('arr34.indexOf(4, 2)==', arr34.indexOf(4, 2));
+		var arr34 = [1,2,3,4,5,6,7,8];
+		console.log('arr34==',arr34);
+		console.log('arr34.lastIndexOf(4)==', arr34.lastIndexOf(4));
+		console.log('arr34.lastIndexOf(4, 6)==', arr34.lastIndexOf(4, 6));
+		console.log('arr34.lastIndexOf(4, 2)==', arr34.lastIndexOf(4, 2));
+	</script>
+</body>
+</html>

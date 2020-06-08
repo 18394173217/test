@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>toString</title>
+</head>
+<body>
+	<script>
+		//数组
+		var array = ["CodePlayer", true, 12, -5];
+		document.writeln( array.toString() ); // CodePlayer,true,12,-5
+		document.writeln( '<br>' );
+		// 日期
+		var date = new Date(2013, 7, 18, 23, 11, 59, 230);
+		document.writeln( date.toString() ); // Sun Aug 18 2013 23:11:59 GMT+0800 (中国标准时间)
+		document.writeln( '<br>' );
+		// 日期2
+		var date2 = new Date(1099, 7, 18, 23, 11, 59, 230);
+		document.writeln( date2.toString() ); // Fri Aug 18 1099 23:11:59 GMT+0800 (中国标准时间)
+		document.writeln( '<br>' );
+		// 数字
+		var num =  15.26540;
+		document.writeln( num.toString() ); // 15.2654
+		document.writeln( '<br>' );
+		// 布尔
+		var bool = true;
+		document.writeln( bool.toString() ); // true
+		document.writeln( '<br>' );
+		// Object
+		var obj = {name: "张三", age: 18};
+		document.writeln( obj.toString() ); // [object Object]
+		document.writeln( '<br>' );
+		// HTML DOM 节点
+		var eles = document.getElementsByTagName("body");
+		document.writeln( eles.toString() ); // [object NodeList]
+		document.writeln( eles[0].toString() ); // [object HTMLBodyElement]
+	</script>
+</body>
+</html>

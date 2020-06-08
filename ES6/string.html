@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>字符串扩展</title>
+	<!-- <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script> -->
+	<script>
+		window.onload = function() {
+			// 1.for of 循环便利字符串
+			var string_001 = '20200420test';
+			for(let item of string_001) {
+				// console.log(item);
+			}
+			// 不能直接输入，需要转义的字符
+			var test_001 = '\u005c';  // "\\"  输入反斜杠
+			console.log(test_001);
+			var test_002 = '\\';  // "\\"  输入反斜杠
+			console.log(test_002);
+			var str = 'demo_test';
+			var num1 = 1;
+			function fn1() {
+				console.log('this is function fn1');
+				return '';
+			}
+			var tset_demo = `
+				test demo 001 ${str} + ${num1 + 11} 调用函数${fn1()}
+			`;
+			console.log(tset_demo); // test demo 001 demo_test + 12 调用函数11
+			var data = ['111', '222', '333', '444', '555'];
+			// let dom = `
+			// 	<ul>
+			// 		<% for(let i = 0; i < data.length; i++) { %>
+			// 			<li><%= data[i] %></li>
+			// 		<% } %>
+			// 	</ul>
+			// `;
+			// document.querySelector('.test_dom').innerHTML = dom;
+			var test_wrapper = 'this is test';
+			console.log(test_wrapper.includes('is'));
+			console.log(test_wrapper.startsWith('is', 5));  // 第二个参数为开始位置
+			console.log(test_wrapper.startsWith('th'));
+			console.log(test_wrapper.endsWith('st'));
+			console.log('this_001'.repeat(3.8));
+
+		}
+	</script>
+</head>
+<body>
+	<div class="test_dom"></div>
+</body>
+</html>

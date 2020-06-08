@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数的属性和方法</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+    function test01(a, b){
+        console.log(a);
+        console.log(b);
+        console.log(this);  //window
+        console.log(arguments); //[1, 2, 3, 4, 5] 
+        console.log(arguments.length); // 5形参的长度
+        console.log(arguments.callee); //函数自身
+        console.log(arguments.callee.length); //2 实参的长度
+    }
+    test01(1, 2, 3, 4, 5);
+    console.log(test01.name);
+    console.log(test01.length);
+    console.log(test01.this);  //undefined  this只能在函数内部调用
+    console.log(test01.arguments); //null
+    console.log(test01.callee);  //undefined
+    function check(args){
+            var actual = args.length;
+            var expected = args.callee.length;
+            if(actual !== expected){
+                throw Error('error');
+            }
+        }
+        function fun(x, y, z){
+            check(arguments);
+            return x + y + z;
+        }
+        var le = fun('x', 'y', 'z');
+        console.log('function.length==',le);
+        // var len = f('x', 'y');   // 传入参数不够，error
+        // console.log('function.length==',len);
+        // bind() 方法
+        function f(y){
+            console.log('this.x + y===',this.x + y);
+            return this.x + y;
+        };
+        var o = {x:3};
+        var g = f.bind(o);
+        console.log('g(2)==',g(2)) //5
+        console.log('-------------');
+        function bind(f, o){
+            console.log('f==',f);
+            console.log('o==',o);
+            if(f.bind){
+                return f.bind(o);
+            } else {
+                return function(){
+                    return f.apply(o, arguments);
+                }
+            }
+        };
+        console.log('-------------');
+        var sum = function(x, y){
+            return x + y;
+        };
+        var succ = sum.bind(null, 1);
+        console.log('succ(2)==',succ(2)) //3
+        function f(y, z){
+            console.log('this.x,y,z===',this.x,y,z); //1, 2, 5
+            return this.x + y + z;
+        };
+        var g = f.bind({x:1},2); 
+        console.log('g(5)==',g(5)); //6
+        // 构造函数
+        var f1 = new Function('x', 'y', 'return x * y;');
+        var f2 = function(x,y){ return x * y};
+        console.log('f1===',f1(2,3),f1); //6
+        console.log('f2===',f2(2,3),f2); //6
+
+        var scope = 'golbal';
+        function conFun (){
+            var scope = 'local';
+            return new Function('return scope');
+        }
+        console.log('conFun()()==',conFun()());  //golbal
+        function isFunction(x){  //x 为函数对象
+            return Object.prototype.toString.call(x) === "[object Function]";
+        }
+        console.log('==================================');
+</script>
+</head>
+<body>
+    <div style="width: 100px;height: 50px;border: 1px solid #ccc;" onclick="test_self()" >累加</div>
+    <div>
+        <input class="input_value" type="text" value="">
+        <div class="input_factorial" style="width: 100px;height: 50px;border: 1px solid #ccc;"></div>
+    </div>
+    <script>
+        // 已引入jQuery
+        //  函数自定义属性
+        test_self.num = 0;
+        function test_self (){
+            console.log('num==',test_self.num);
+            return test_self.num++;
+        };
+        var $ = jQuery;
+        $('.input_value').on('change', () => {
+            var value =  $('.input_value').val();
+            var text = this.factorial(value);
+            $('.input_factorial').html(text);
+        })
+        // function factorial (n){
+        //     if(isFinite(n) && n > 0 && n == Math.round(n)){
+        //         if(!(n in factorial)){
+        //             factorial[n] = n * factorial(n-1);
+        //         }
+        //         return factorial[n];
+        //     } else {
+        //         return NaN;
+        //     }
+        // }
+        // factorial[1] = 1;
+        function factorial (n){
+            if(isFinite(n) && n > 0){
+                n = Math.round(n);
+                var num = 1
+                for(var i = 1; i <= n; i++){
+                    num = num * i;
+                }
+                return num;
+            } else {
+                return NaN;
+            }
+        }
+        // function factorial (n){
+        //     if(n ==0 || n ==1){
+        //         return 1;
+        //     } else {
+        //         return (n * factorial(n - 1));
+        //     }
+        // }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则匹配</title>
+	<!-- <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+	<style>
+		input {
+			outline: none;
+		}
+		#test {
+			width: 100px;
+			height: 60px;
+			/*contnet: '111';*/
+		}
+	</style>
+	<script>
+		window.onload= function() {
+			'$foo %foo foo'.replace(/(?<=\%)foo/g, 'bar');  // "$foo %bar foo
+			$('.number').on('change', (e) => {
+				var value = e.target.value
+				if(/^\d+$/.test(value)) {
+					console.log('全是数字');
+				} else {
+					console.log('不全是数字');
+				}
+			})
+
+		}	
+	</script>
+</head>
+<body>
+	<input type="text" class="number">
+	<div id="test"></div>
+
+	<!-- <a href="sms:18394173217">移动WEB页面JS一键发送短信咨询功能</a> -->
+</body>
+</html>

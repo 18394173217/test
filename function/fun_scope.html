@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包函数</title>
+</head>
+<body>
+	<script>
+		//闭包函数
+		function test01(){
+			var n = 111;
+			nAdd = function(){  //nAdd 为一个全局变量，所以次函数在函数外部也可以调用
+				n = n + 22;
+			};
+			function test02(){
+				console.log('n==',n);
+			};
+			return test02;
+		}
+		var result = test01();  //拿到test01的return值 function test02(){}
+		result();  //111
+		nAdd();
+		result();	//133
+		console.log('==================');
+		var name = "The Window";
+		var object = {
+			name: 'my object',
+			getNameFun: function (){
+				return function (){
+					console.log('this==',this);
+					return this.name;
+				}
+			}
+		}
+		console.log('name==',object.getNameFun()());  //The Window
+		var object_test = {
+			name: 'my object',
+			getNameFun_test: function (){
+				var that = this;
+				return function (){
+					console.log('that==',that);
+					return that.name;
+				}
+			}
+		}
+		console.log('name==',object_test.getNameFun_test()());  //The Window
+		function test_03 (n){
+			return {
+				get test(){
+					console.log('get_n==',n);
+					return n = n + 11;
+				},
+				set test(m){
+					console.log('set_m==',m);
+					return n = m - 11;
+				}
+			}
+		}
+		var test_03_result = test_03(6);
+		console.log('test_03_result.test==', test_03_result.test);
+		console.log('test_03_result.test==', test_03_result.test);
+		console.log('========');
+		console.log('test_03_result.test==', test_03_result.test = 44);
+		console.log('test_03_result.test==', test_03_result.test);
+	</script>
+</body>
+</html>

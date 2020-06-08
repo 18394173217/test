@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试object属性</title>
+</head>
+<body>
+	<script>
+		var obj = {id: '123'};
+		obj.ids = '000';
+		console.log('obj==',obj);
+		console.log('obj.id==',obj.id);
+		// console.log('obj[id]==',obj[id]);  //id is not defined
+		console.log('obj["id"]==',obj['id']);
+		console.log('obj[123]==',obj[123]);
+		console.log('obj["123"]==',obj['123']);
+
+		console.log('obj.ids==',obj.ids);
+		// console.log('obj[ids]==',obj[ids]);  //ids is not defined
+		console.log('obj["ids"]==',obj['ids']);
+		console.log('obj[000]==',obj[000]);
+		console.log('obj["000"]==',obj['000']);
+
+		var obj_new = new Object();
+		obj_new.id = '123';
+		console.log('obj_new==',obj_new);
+
+	</script>
+</body>
+</html>

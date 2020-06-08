@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.table_foot .foot {height: 40px;line-height: 40px;display: flex;color: #bababa;}
+		.table_foot .foot input {width: 55px;height: 24px;line-height: 24px;margin: auto;padding: 0 5px;border: 1px solid #ede0e4;text-align: right;outline: none;}
+		.table_foot .foot .prev, .table_foot .foot .next {width: 24px;height: 24px;margin: auto;}
+		.table_foot .foot .prev {margin-left: 10px;background-image: url(../../../images/channel/prev.png);background-position: center;background-repeat: no-repeat;}
+		.table_foot .foot .next {margin-left: 5px;background-image: url(../../../images/channel/next.png);background-position: center;background-repeat: no-repeat;}
+	</style>
+</head>
+<body>
+	
+		<div class="table_foot">
+			<div class="foot">
+				<div class="_dialog_span"></div>
+				<div>转到:</div>
+				<input type="text">
+				<div>第</div>
+				<div class="current_page"></div>
+				<div>页，共</div>
+				<div class="total_page"></div>
+				<div>页</div>
+				<div class="prev"></div>
+				<div class="next"></div>
+			</div>
+		</div>
+	
+</body>
+</html>

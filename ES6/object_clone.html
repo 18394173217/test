@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对比克隆对象</title>
+	<script>
+		let obj_a = {a: '111'}
+		let a = obj_a;
+		a.a = '000';
+		console.log(obj_a); // {a: '000'}
+		console.log(a); // {a: '000'}
+
+		let obj_b = {b: '222'}
+		let b = Object.assign({}, obj_b)
+		obj_b.b = '000'
+		console.log(obj_b); // {b: '000'}
+		console.log(b); // {b: '222'}
+
+		let obj_c = {c: {name: '11'}};
+		let c = Object.assign({}, obj_c);
+		c.c = '000'
+		console.log(obj_c); // {c: {name: '11'}}
+		console.log(c); // {c: '000'}
+
+		let obj_d = {d: {name: '11'}};
+		let d = Object.assign({}, obj_d);
+		d.d = {user: 'admin'}
+		console.log(obj_d); // {d: {name: '11'}}
+		console.log(d); // {d: {user: 'admin'}}
+
+		let obj_e = {e: {name: '11'}};
+		let e = Object.assign({}, obj_e);
+		e.e.name = 'name';
+		console.log(obj_e); // {e: {name: "name"}}
+		console.log(e); // {e: {name: "name"}}
+
+		let obj_f = {f: {name: '000'}};
+		let clone_obj_f = JSON.parse(JSON.stringify(obj_f));
+		clone_obj_f.f.name = 'name';
+		console.log(obj_f); // {e: {name: "000"}}
+		console.log(clone_obj_f); // {e: {name: "name"}}
+
+		let obj = {name: {user: {key: 'key'}}};
+		let clone_obj = JSON.parse(JSON.stringify(obj));
+		clone_obj.name.user.key = 'name';
+		console.log(obj); // {name: {user: {key: 'key'}}}
+		console.log(clone_obj); // {name: {user: {key: 'name'}}}
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

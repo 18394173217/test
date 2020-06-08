@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>类和模块</title>
+</head>
+<body>
+	<script>
+		function inherit (p){
+			if(p == null){
+				throw TypeError();
+			}
+			if(Object.create){
+				return Object.create(p);
+			}
+			var t = typeof p;
+			if(t !== "object" && t !== "function"){
+				throw TypeError();
+			}
+			function f(){};
+			f.prototype = p;
+			return new f();			
+		};
+		// 创建类以及类的方法
+		function range (from, to){
+			var r = inherit(range.methods);
+			r.from = from;
+			r.to = to;
+			return r;
+		};
+		range.methods = {
+			includes: function (x){
+				return this.from <= x && x <= this.to;
+			},
+			foreach: function (f){
+				for(var x = Math.ceil(this.from); x <= this.to; x++){
+					f(x);
+				}
+			},
+			toString: function (){
+				return "(" + this.from + "..." + this.to + ")";
+			}
+		}
+		var r = range(1, 6);
+		console.log('r==',r);  //{from: 1, to: 6}
+		console.log('r.includes(4)==',r.includes(4));   //true
+		r.foreach(console.log);  //依次输出 1 2 3 4 5 6
+		console.log(r.toString());  //输出 1...6
+		console.log('--------------------');
+		// 构造函数
+		function Range(from, to){
+			this.from = from;
+			this.to = to;
+		}
+		Range.prototype = {
+			includes: function (x){
+				return this.from <= x && x <= this.to;
+			},
+			foreach: function (f){
+				for (var x = Math.ceil(this.from); x <= this.to; x++){
+					f(x);
+				}
+			},
+			toString: function (){
+				return "(" + this.from + "..." + this.to + ")";
+			}
+		}
+		var R = new Range(1, 6);
+		console.log('R==',R);  //Range {from: 1, to: 6}
+		console.log('R.includes(4)==',R.includes(4));   //true
+		R.foreach(console.log);  //依次输出 1 2 3 4 5 6
+		console.log(R.toString());  //输出 1...6
+		console.log('---------------');
+		// constructor 属性
+		var F = function (){};
+		var p = F.prototype;
+		var c = p.constructor;
+		console.log('constructor--->', c === F);  //true
+		// JavaScript类的继承
+		function defineClass (constructor, methods, statics){
+			if(methods){
+				// extend(constructor.prototype, methods);
+				console.log('methods==', constructor.prototype, methods)
+			}
+			if(statics){
+				// extend(constructor, statics);
+				console.log('statics==', constructor, statics)
+			}
+			return constructor;
+		}
+		var SimpleRange = defineClass(function (f, t){
+			this.f = f;
+			this.t = t;
+		}, {
+			includes: function (x){
+				return this.f <= x && x <= this.t;
+			},
+			toString: function (){
+				return this.f + '...' + this.t;
+			}
+		},{
+			upto: function (t){
+				return new SimpleRange(0, t);
+			}
+		});
+		// 数据共享
+		var Cat = {
+			sound: 'this is Cat',
+			createNew: function (){
+				var obj = {};
+				obj.makeSound = function (){
+					console.log(Cat.sound);
+				};
+				obj.changeSound = function (val){
+					Cat.sound = val;
+				};
+				return obj;
+			}
+		};
+		var cat1 = Cat.createNew();
+		var cat2 = Cat.createNew();
+		cat1.makeSound();   // this is Cat
+		cat2.changeSound('this is a Dog');
+		cat1.makeSound();   // this is a Dog
+		// 带参数的构造函数
+		function Shape (ax, ay){
+			var _this = this;
+			var x = 0;
+			var y = 0;
+			var init = function (){
+				_this.x = ax;
+				_this.y = ay;
+			};
+			init();
+		}
+		var aShape = new Shape(1, 2);
+		console.log('aShape==', aShape);
+		console.log('aShape.x==', aShape.x);
+
+	</script>
+</body>
+</html>

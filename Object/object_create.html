@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的定义及创建</title>
+</head>
+<body>
+	<script>
+		//对象直接量
+		var obj01 = {
+			name: 'name',
+			age: 20,
+			info: {
+				test: 'test',
+				info_children: 'ttttt_test'
+			}
+		};
+		var obj = new Object();  //对象
+		var arr = new Array();   //数组
+		var date = new Date();   //日期
+		var reg = RegExp('js');  //正则对象
+		// delete
+		var obj02 = {
+			x: 1,
+			y: 2
+		}
+		console.log('obj02==', obj02);   //{x: 1, y: 2}
+		console.log('delete obj02.x==',delete obj02.x);   //true
+		console.log('obj02==', obj02);   //{y: 2}
+		console.log('obj02.x==', obj02.x);   //undefined
+		console.log('delete obj02.x==',delete obj02.x);   //true
+		console.log('delete obj02.toString==',delete obj02.toString);   //true
+		console.log('delete 1==',delete 1);   //true
+		console.log('---------------');
+		// delete
+		console.log('delete Object.prototype==',delete Object.prototype);    //不能删除，属性是不可配置的
+		var x = 1;
+		console.log('delete this.x==',delete this.x);         //不能删除全局对象的属性
+		function f (){};
+		console.log('delete this.f==',delete this.f);        //不能删除群居函数
+
+		console.log('---------- in ---------');
+		var obj03 = {
+			x: 1
+		}
+		console.log('obj03==',obj03);
+		console.log('"x" in obj03==',"x" in  obj03);   //true
+		console.log('"y" in obj03==',"y" in  obj03);   //false
+		console.log('"toString" in obj03==',"toString" in  obj03);   //true
+		console.log('---------- hasOwnProperty ---------');
+		var obj04 = {
+			x: 1
+		}
+		console.log('obj04==',obj04);
+		console.log('obj04.hasOwnProperty("x")==',obj04.hasOwnProperty("x"));   //true
+		console.log('obj04.hasOwnProperty("y")==',obj04.hasOwnProperty("y"));   //false
+		console.log('obj04.hasOwnProperty("toString")==',obj04.hasOwnProperty("toString"));   //false
+		console.log('---------- propertyIsEnumerable ---------');
+		var obj05 = {
+			x: 1
+		}
+		obj05.y = 'name';
+		console.log('obj05==',obj05);
+		console.log('obj05.propertyIsEnumerable("x")==',obj05.propertyIsEnumerable("x"));   //true
+		console.log('obj05.propertyIsEnumerable("y")==',obj05.propertyIsEnumerable("y"));   //true
+		console.log('obj05.propertyIsEnumerable("toString")==',obj05.propertyIsEnumerable("toString"));   //false   继承属性
+		console.log('Object.prototype.propertyIsEnumerable("toString")==',Object.prototype.propertyIsEnumerable("toString"));   //false   不可枚举
+		console.log('---------- !== ---------');
+		var obj06 = {
+			x: 1
+		}
+		console.log('obj06==',obj06);
+		console.log('obj06.x !== undefined',obj06.x !== undefined);   //true
+		console.log('obj06.y !== undefined',obj06.y !== undefined);   //false
+		console.log('obj06.toString !== undefined',obj06.toString !== undefined);   //true
+		//  存取器属性
+		var value = 'val';
+		var obj07 = {
+			date_prop: value,
+			get accessor_prop (){},
+			set accessot_prop (value){}
+		};
+		console.log('obj07==',obj07);
+		// 存取器
+		var newvalue = 4;
+		var p = {
+			x: 2,
+			y: 3,
+			get r (){
+				return this.x + this.y;
+			},
+			set r (newvalue){
+				this.x = 11;
+				this.y = 22
+			},
+			get t (){
+				return this.x * this.y;
+			}
+		}
+		console.log('p==',p);
+		console.log('p.r==',p.r);
+		console.log('p.t==',p.t);
+
+		var obj08 = {
+			n: 0,
+			get next (){
+				return this.n++;
+			},
+			set next (n){
+				if(n >= this.n){
+					this.n = n;
+				} else {
+					throw 'error';
+				}
+			}
+		}
+		console.log('=============');
+		// 获得某个对象特定属性的属性描述Object.getOwnPropertyDescriptor()
+		console.log(Object.getOwnPropertyDescriptor({x: 1}, "x"));  //{value: 1, writable: true, enumerable: true, configurable: true}
+		var obj_peoperty = {};
+		Object.defineProperty(obj_peoperty, "x", {value: 1, writable: true, enumerable: false, configurable: true});
+		console.log('obj_peoperty.x==',obj_peoperty.x);   //1
+		console.log('Object.keys(obj_peoperty)==',Object.keys(obj_peoperty));  //[]
+		// 将属性x变为只读属性
+		Object.defineProperty(obj_peoperty, "x", {writable: false});
+		// 让x变为只读属性
+		obj_peoperty.x = 2
+		console.log('obj_peoperty.x==',obj_peoperty.x);   //1
+		// 通过defineProperty的方式修改属性的值
+		Object.defineProperty(obj_peoperty, "x", {value: 2});
+		console.log('obj_peoperty.x==',obj_peoperty.x);   //2
+		// 将x从数据属性跟改为存取器属性
+		Object.defineProperty(obj_peoperty, "x", {get: function (){return 0;}});
+		console.log('obj_peoperty.x==', obj_peoperty.x);   //0
+		console.log('-------------');
+		// 判断一个对象是否是另一个对象的原型
+		var　p = {ｘ: 1};
+		var o = Object.create(p);
+		console.log(p.isPrototypeOf(o));   //true
+		console.log(Object.prototype.isPrototypeOf(o));   //true
+		// 类属性区分
+		function classof(o){
+			if(o === null){
+				return "Null";
+			};
+			if(o === undefined){
+				return "undefined";
+			};
+			return Object.prototype.toString.call(o).slice(8, -1);
+		}
+		console.log('classof(1)==',classof(1));
+		
+	</script>
+	<!-- <script>
+		// delete
+		'use strict'
+		console.log('delete Object.prototype==',delete Object.prototype);    //严格模式下报错
+		var x = 1;
+		console.log('delete this.x==',delete this.x);
+		function f (){};
+		console.log('delete this.f==',delete this.f);
+	</script> -->
+	<!-- <script>
+		// 测试概率
+		var num = 0;
+		var a = Math.ceil(Math.random() * 10);
+		var b = Math.ceil(Math.random() * 10);
+		var c = Math.ceil(Math.random() * 10);
+		console.log('a==',a);
+		if(a * b * c == 1){
+			console.log('结果为1');
+		} else {
+			console.log('结果为', a * b * c);
+		}
+	</script> -->
+</body>
+</html>

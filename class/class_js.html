@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript中的面向对象技术</title>
+</head>
+<body>
+	<script>
+		// 值的任意集合
+		function Set (){
+			this.values = {};
+			this.n = 0;
+			this.add.apply(this, arguments);
+		};
+		// 将每个参数都添加到集合中
+		Set.prototype.add = function (){
+			for(var i = 0; i < arguments.length; i++){
+				var val = arguments[i];
+				var str = Set._v2s(val);
+				if(!this.values.hasOwnProperty(str)){
+					this.values[str] = val;
+					this.n++;
+				}
+			}
+			return this;     // 支持链式方法调用
+		};
+		// 从集合中删除元素
+		Set.prototype.remove = function (){
+			for(var i = 0; i < arguments.length; i++){
+				var str = Set._v2s(arguments[i]);
+				if(this.values.hasOwnProperty(str)){
+					delete this.values[str];
+					this.n--;
+				}
+			}
+			return this;
+		};
+		// 如果集合包含这个值返回 true，否则返回 false
+		Set.prototype.contains = function (value){
+			return this.values.hasOwnProperty(Set._v2s(value))
+		};
+		// 返回集合的大小
+		Set.prototype.size = function (){
+			return this.n;
+		};
+		// 遍历集合中所有的元素，在指定的上下文中调用f
+		Set.prototype.foreach = function (f, context){
+			for(var s in this.values){
+				if(this.values.hasOwnProperty(s)){
+					f.call(context, this.values[s]);
+				}
+			}
+		};
+		// 这是一个内部函数，用于将任意JavaScript值和唯一的字符串对应起来
+		Set._v2s = function (val){
+			switch (val){
+				case undefined:
+					return 'u';
+				case null:
+					return 'n';
+				case true:
+					return 't';
+				case false:
+					return 'f';
+				default:
+					switch (typeof val){
+						case 'number':
+							return '#' + val;
+						case 'string':
+							return '"' + val;
+						default: 
+							return '@' + objectId(val);
+					}
+			}
+			function objectId (o){
+				var prop = "|**object**|";
+				if(!o.hasOwnProperty(prop)){
+					o[prop] = Set._v2s.next++;
+				}
+				return o[prop];
+			}
+		};
+		Set._v2s.next = 0;
+		console.log('Set==',Set);
+		console.log('Set.prototype==',Set.prototype);
+		var set = new Set();
+		console.log('set==',set);
+		var set1 = new Set();
+		set1.add(12321);
+		console.log('set1==',set1);
+		var set2 = new Set();
+		var obj_set = {
+			name: 'xxx',
+			age: 20
+		}
+		set2.add(obj_set);
+		set2.add('string111');
+		console.log('set2==',set2);
+		console.log('----------------');
+		// 枚举类型
+		function enumeration (namesToValues){
+			// 这个虚拟的构造函数是返回值
+			var enumeration = function (){
+				throw "error";
+			};
+			// 枚举值继承自这个 对象
+			var proto = enumeration.prototype = {
+				constructor: enumeration,
+				toString: function (){
+					return this.name;
+				},
+				valueOf: function (){
+					return this.value;
+				},
+				toJSON: function (){
+					return this.name;
+				}
+			};
+			enumeration.values = [];     //用于存放枚举对象的数组
+			for(name in namesToValues){
+				var e = inherit(protp);
+				e.name = name;
+				e.value = namesToValues[name];
+				enumeration[name] = e;
+				enumeration.values.push(e);
+			};
+			// 一个类方法，用于对类的实例进行迭代
+			enumeration.foreach = function (f, c){
+				for(var i = 0; i < this.values.length; i++){
+					f.call(c, this.values[i]);
+				}
+			};
+			// 返回标识这个新类型的构造函数
+			return enumeration;
+		}
+		// 使用枚举类型来表示一副扑克牌
+		function Card (suit, rank){
+			this.suit = suit;
+			this.rank = rank;
+		}
+		Card.Suit = enumeration({Clubs: 1,Diamonds: 2, Hearts: 3, Spades: 4});
+		Card.Rank = enumeration({Two: 2, Three: 3, Four: 4, Five: 5, Six: 6, Seven: 7, Eight: 8, Nine: 9, Ten: 10, Jack: 11, Queen: 12, King: 12, Ac: 14});
+		Card.prototype.toString = function (){
+			return this.rank.toString() + 'of' + this.suit.toString();
+		};
+
+
+	</script>
+</body>
+</html>

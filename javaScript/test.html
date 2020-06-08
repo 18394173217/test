@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>编写可维护的JavaScript</title>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	<script>
+		window.onload = function() {
+			$('.click_div').unbind().bind('click', (e) => {
+				// $('.click_div').html('');
+				var left = e.clientX;
+				var top = e.clientY;
+				createDiv(left, top);
+			});
+			function createDiv(left, top) {
+				var dom = '<div style="width: 50px;height: 50px;border: 1px solid #ccc;background-color: aqua;position: absolute;left: ' + left + 'px;top: ' + top + 'px;"></div>'
+				$('.click_div').append(dom);
+			}
+			// 复选框单选
+			$('#common-form').on('click', 'input[type=checkbox]' , function(){
+		        if(this.checked){
+	        		$('#common-form .checked').click();
+		        	$(this).addClass('checked');
+		        } else {
+		        	$(this).removeClass('checked');
+		        }
+		    });
+		}
+	</script>
+	<script>
+		window.onload = function() {
+			if($('#input111').length > 0) {
+				if(!$("#input111").is(":checked") && !$("#input222").is(":checked") && !$("#input333").is(":checked") ) {
+					alert('一个选中的都没有')
+				} else {
+					
+				}
+				$('table td').on('click', 'input[type=checkbox]' , function(){
+			        if(this.checked){
+		        		$('table td .checked').click();
+			        	$(this).addClass('checked');
+			        	var value = $(this).val();
+			        	console.log(value);
+			        } else {
+			        	$(this).removeClass('checked');
+			        }
+			    });
+			}
+			// 复选框单选
+			
+			// $('#input111').bind('click', function() {
+			// 	if(this.checked){
+			// 		if($('input222').is(':checked')){
+			// 			$('#input222').click();
+			// 		}
+			// 		if($('#input333').is(':checked')){
+			// 			$('#input333').click();
+			// 		}
+			// 	}
+			// });
+			// $('#input222').bind('click', function() {
+			// 	if(this.checked){
+			// 		if($('#input111').is(':checked')){
+			// 			$('#input111').click();
+			// 		}
+			// 		if($('#input333').is(':checked')){
+			// 			$('#input333').click();
+			// 		}
+			// 	}
+			// });
+			// $('#input333').bind('click', function() {
+			// 	if(this.checked){
+			// 		if($('#input111').is(':checked')){
+			// 			$('#input111').click();
+			// 		}
+			// 		if($('#input222').is(':checked')){
+			// 			$('#input222').click();
+			// 		}
+			// 	}
+			// });
+		}
+	</script>
+</head>
+<body>
+	<!-- <div class="click_div" style="width: 800px;height: 600px;border: 1px solid #ccc;"></div> -->
+	<!-- <form id="common-form">  
+        <input name="check1" type="checkbox"/>check1
+        <input name="check2" type="checkbox"/>check2
+        <input name="check3" type="checkbox"/>check3
+        <input name="check4" type="checkbox"/>check4
+        <input name="check5" type="checkbox"/>check5
+        <input name="check6" type="checkbox"/>check6
+    </form>   -->
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>
+				<input id="input111" name="check1" value="111" type="checkbox"/>check1
+		        <input id="input222" name="check2" value="222" type="checkbox"/>check2
+		        <input id="input333" name="check3" value="333" type="checkbox"/>check3
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

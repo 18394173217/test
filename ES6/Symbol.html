@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Symbol</title>
+	<script>
+		let arr1 = ['c', 'd'];
+		console.log(['a', 'b'].concat(arr1, 'e')) // ['a', 'b', 'c', 'd', 'e']
+		console.log(arr1[Symbol.isConcatSpreadable]) // undefined
+
+		let arr2 = ['c', 'd'];
+		arr2[Symbol.isConcatSpreadable] = false;
+		console.log(['a', 'b'].concat(arr2, 'e')) // ['a', 'b', ['c','d'], 'e']
+
+		let obj = {length: 2, 0: 'c', 1: 'd'};
+		['a', 'b'].concat(obj, 'e') // ['a', 'b', obj, 'e']
+
+		obj[Symbol.isConcatSpreadable] = true;
+		['a', 'b'].concat(obj, 'e') // ['a', 'b', 'c', 'd', 'e']
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

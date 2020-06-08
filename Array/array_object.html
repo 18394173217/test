@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组与对象的区别</title>
+</head>
+<body>
+	<script>
+		//  通过属性名访问数据
+		var arr01 = [1111, 2222, {arr: 'arr'}];
+		var obj01 = {name: 'obj_name', city: 'shanghai', length: 5}
+		console.log('arr01==', arr01);
+		console.log('obj01==', obj01);
+			arr01.name = 'arr_name';
+			arr01.city = 'beijing';
+		console.log('arr01==', arr01);
+		console.log('arr01[2]==', arr01[2]);
+		console.log('arr01[3]==', arr01[3]);
+		console.log('arr01["name"]==', arr01['name']);
+		console.log('arr01.name==', arr01.name);
+		console.log('obj01.name==',obj01.name);
+		console.log('obj01[1]==',obj01[1]);
+		console.log('obj01[name]==',obj01[name]);
+		console.log('obj01["name"]==',obj01['name']);
+		console.log('arr01.length==', arr01.length);
+		console.log('obj01.length==',obj01.length);
+		console.log('-----for-----');
+		for(var i = 0; i < arr01.length; i++){
+			console.log('arr01[i]==',arr01[i]);
+		}
+		// 因为对象无法通过obj[0]访问，不能使用for循环
+		for(var i = 0; i < obj01.length; i++){
+			console.log('obj01[i]==', obj01[i]);
+		}
+		console.log('-----for in-----');
+		for(var item in arr01){
+			console.log('item==',item);
+			// console.log('arr01.item==',arr01.item);   //item 为 "item"
+			console.log('arr01[item]==',arr01[item]);
+		}
+		for(var item in obj01){
+			console.log('item==',item);
+			// console.log('obj01.item==',obj01.item);
+		}
+		console.log('-------鉴别--------');
+		console.log('arr01--->',arr01.constructor);   //ƒ Array() { [native code] }
+		console.log('obj01--->',obj01.constructor);   //ƒ Object() { [native code] }
+		console.log('arr01--->',arr01 instanceof Array);   // true
+		console.log('obj01--->',obj01 instanceof Array);   // false
+		console.log('arr01--->',Object.prototype.toString.call(arr01));  //[object Array]
+		console.log('obj01--->',Object.prototype.toString.call(obj01));  //[object Object]
+
+	</script>
+</body>
+</html>

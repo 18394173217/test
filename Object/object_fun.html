@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>序列化对象</title>
+</head>
+<body>
+	<script>
+		var o = {x: 1, y: {z: [false, null, ""]}};
+		console.log('o==', o);
+		var s = JSON.stringify(o);
+		console.log('s==', s);
+		var p = JSON.parse(s);
+		console.log('p==', p);
+	</script>
+</body>
+</html>

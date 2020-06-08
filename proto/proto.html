@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型链的继承</title>
+</head>
+<body>
+	<script>
+		function fun_01 (){
+			this.a = 1;
+			this.b = 2;
+		}
+		var fun_02 = new fun_01();
+		fun_01.prototype.b = 3;
+		fun_01.prototype.c = 4;
+		console.log('fun_02.a==',fun_02.a);   //1
+		console.log('fun_02.b==',fun_02.b);   //2
+		console.log('fun_02.c==',fun_02.c);   //4 向原型上查，查到c
+		console.log('fun_02.d==',fun_02.d);   //undefined
+		console.log('-------------------');
+		var obj_01 = {
+			a: 1,
+			f: function (){
+				return this.a + 3;
+			}
+		};
+		console.log('obj_01==',obj_01);
+		console.log('obj_01.a==',obj_01.a);
+		console.log('obj_01.f()==',obj_01.f());
+		var obj_02 = Object.create(obj_01);
+			obj_02.a = 11;
+		console.log('obj_02==',obj_02);
+		console.log('obj_02.a==',obj_02.a);
+		console.log('obj_02.f()==',obj_02.f());
+		console.log('----------');
+		function f1 (){}
+		console.log('f1.prototype==',f1.prototype);
+		var f2 = function (){}
+		console.log('f2.prototype==',f2.prototype);
+		f1.prototype.test = 'test';
+		console.log('f1.prototype==',f1.prototype);
+		var f3 = new f1();
+		f3.ttt = 'ttt';
+		console.log('f3==',f3);
+		// console.log('f3.__proto__==',f3.__proto__);
+		// console.log('f3.prototype==',f3.prototype);
+		// function f4 (name){ console.log('f4.name==',name); }
+		function f4 (){}
+		console.log('f4()==',f4());
+		console.log('new f4()==', new f4());
+		var obj_04 = new f4();
+		console.log(obj_04.__proto__ === f4.prototype);
+		function Human() {}
+		console.log(Human.prototype)
+		var person_test = new Human()
+		console.log(person_test.__proto__)
+		console.log(Human.prototype === person_test.__proto__) // true
+
+		var obj = {
+			name: 'test'
+		}
+		var obj_05 = {
+			__proto__: obj
+		}
+		console.log(obj_05.name);
+		obj_05.name = 'ttttt_hhhh';
+		console.log(obj_05.name);
+
+		function Fn (){};
+		Fn.prototype.name = function(){};
+		var obj01 = new Fn();
+		var obj02 = new Fn();
+		console.log('Fn----', obj01.name === obj02.name);
+		// 子类继承父类的 静态[属性/方法]
+		function Father1 (){};
+		Father1.prototype.say = function (){
+		    console.log('I am talking...');
+		};
+		function Son1 (){};
+		var sonObj_1 = new Son1();
+		console.log(sonObj_1.say); // undefined
+		// 原型链实现继承的关键代码
+		Son1.prototype = new Father1();
+		var sonObj_2 = new Son1();
+		console.log(sonObj_2.say); // function() {...}
+		console.log('------------');
+		// 子类继承父类的 非静态[属性/方法]
+		function Father2(name) {
+		    this.name = name
+		}
+		function Son2() {
+		    Father2.apply(this, arguments)
+		    this.sing = function() {
+		        console.log(this.name + ' is singing...')
+		    }
+		}
+		var sonObj_1 = new Son2('jack')
+		var sonObj_2 = new Son2('rose')
+		sonObj_1.sing() // jack is singing...
+		sonObj_2.sing() // rose is singing...
+		// 组合的方式实现继承
+		function Father3(name) {
+		    this.name = name
+		}
+		Father3.prototype.sayName = function() {
+		    console.log('My name is ' + this.name)
+		}
+		function Son3() {
+		    Father3.apply(this, arguments)
+		}
+		Son3.prototype = new Father3()
+		var sonObj_1 = new Son3('jack')
+		var sonObj_2 = new Son3('rose')
+		sonObj_1.sayName() // My name is jack
+		sonObj_2.sayName() // My name is rose
+		// 寄生组合方式实现继承
+		function Father4(name) {
+		    this.name = name
+		}
+		Father4.prototype.sayName = function() {
+		    console.log('My name is ' + this.name)
+		}
+		function Son4() {
+		    Father4.apply(this, arguments)
+		}
+		(function () {
+		   function Super(){}
+		   Super.prototype = Father4.prototype
+		   Son4.prototype = new Super()
+		}())
+		var sonObj_1 = new Son4('jack')
+		// 原型上的方法可以互相访问
+		function Animal(name,age){
+	        this.name = name;
+	        thia.age = age;
+	     }
+	    //在原型中添加方法
+	    Animal.prototype.eat = function(){
+	        console.log("动物吃草")
+	        this.play()
+	    }
+	    Animal.prototype.play = function(){
+	        console.log("玩啥呢")
+	    }
+	    Animal.prototype.eat();
+	    console.log('--------------');
+	    function Student (name, age, sex){
+	    	this.name = name;
+	    	this.age = age;
+	    	this.sex = sex;
+	    	this.study();
+	    };
+	    Student.prototype.height = '公共属性为——身高为180';
+	    Student.prototype.weight = '公共属性为——体重为60kg';
+	    Student.prototype.study = function (){
+	    	console.log(this.name + '的学习成绩很好！');
+	    }
+	    var student_01 = new Student ('xxx', 20, '男')
+		console.log('student_01==',student_01);
+		console.log('student_01==',student_01.height);
+		var student_02 = new Student ('aaa', 22, '女');
+		console.log('student_02==',student_02);
+		console.log('student_02==',student_02.height);
+
+		function Student01 (name,age,sex){
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.study();
+     	}
+     	Student01.prototype = {
+        	constructor: Student01,
+     		share_01: '共享属性001',
+     		share_02: '共享属性002',
+     		study: function(){
+     			console.log(this.name + '的学习成绩很好！');
+     		}
+     	}
+     	var student_03 = new Student01('bbbbbbb-001', 21, 'nan');
+     	console.log('student_03==',student_03);
+
+     	function Person(name,age,sex,weight){
+		    this.name = name;
+		    this.age = age;
+		    this.sex = sex;
+		    this.weight = weight;
+		}
+		Person.prototype.sayHi = function(){
+		    console.log("您好")
+		}
+		function Student02(name,age,sex,weight,score){
+		    Person.call(this,name,age,sex,weight);
+		    this.score = score;
+		}
+		var stu1 = new Student02("小明",10,"男","10kg","100")
+		console.log('stu1==',stu1);
+		
+	</script>
+</body>
+</html>

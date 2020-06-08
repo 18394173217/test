@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script>
+        $(function () {
+            var divs = $("div");
+            divs.each((index,item)=>{
+                var spans = $(item).find('span')||'';
+                if(spans!=='') {
+                	console.log(spans.length);
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+	<div>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+    </div>
+    <div>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>
+    </div>
+    <div>
+        <span>8</span>
+        <span>9</span>
+    </div>
+</body>
+</html>

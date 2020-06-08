@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数绑定事件的方法</title>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body onload="console.log('页面加载完成')">
+	<!-- onabort -->
+	<div>
+		<img src="" alt="" onabort="console.log('图片加载未完成')" onerror="console.log('图像加载发生错误')">
+		<img src="" alt="" onabort="on_abort('图片加载未完成或图片加载被中断')">
+	</div>
+	<script>
+		function on_abort (value){
+			console.log(value);
+		};
+	</script>
+	<!-- onfocus、onblur -->
+	<div>
+		<a href="#" onfocus="console.log('a标签获得焦点')" onblur="console.log('a标签失去焦点')">获得/失去焦点事件</a>
+	</div>
+	<!-- onchange -->
+	<div>
+		<input type="text" onchange="console.log('value==',this.value)" onclick="console.log('单击事件')" ondblclick="console.log('双击事件')">
+		<input type="text" onchange="console.log('value==',this.value)" onclick="input_click()" ondblclick="input_dblclick()">
+	</div>
+	<script>
+		function input_click(){
+			console.log('单击输入框')
+		}
+		function input_dblclick(){
+			console.log('双击输入框input')
+		}
+	</script>
+	<!-- onclick、ondblclick -->
+	<div>
+		<div class="click" onclick="console.log('单击事件')" ondblclick="console.log('双击事件')">单击或双击</div>
+	</div>
+	<div>
+		<button class="bind_btn_01" onclick="console.log('在元素中直接绑定点击事件')">在元素中直接绑定点击事件</button>
+		<button class="bind_btn_02" onclick="btn_02_click('在元素中直接调用点击事件的函数名')">在元素中直接调用点击事件的函数名</button>
+	</div>
+	<script>
+		function btn_02_click (value){
+			console.log(value);
+		}
+	</script>
+	<!-- onkeydown -->
+	<div>
+		<input type="text" onkeydown="console.log('onkeydown==', event.keyCode || event.which, event.key)" onkeypress="console.log('onkeypress==', event.keyCode || event.which, event.key)">
+	</div>
+	<div style="width: 400px; height: 200px; border: 1px solid #ccc"
+		onmousedown="mousedown_test(event)" onmouseover="mouseover_test()" onmousemove="mousemove_test(event)" onmouseout="mouseout_test()" onmouseup="mouseup_test(event)"></div>
+	<script>
+		function mousedown_test (e){
+			console.log('哪个鼠标按键==', e.button);
+			console.log('鼠标光标相对于浏览器的位置==', e.clientX, e.clientY);
+			console.log('鼠标光标相对于屏幕的位置==', e.screenX, e.screenY);
+		};
+		function mouseover_test (){
+			console.log('鼠标移入了div');
+		}
+		function mousemove_test (e){
+			// console.log('移动过程中鼠标光标相对于浏览器的位置==', e.clientX, e.clientY);
+		}
+		function mouseout_test (){
+			console.log('鼠标移出了div');
+		}
+		function mouseup_test (e){
+			console.log('鼠标按键被松开的位置==', e.clientX, e.clientY)
+		}
+	</script>
+	<div id="mousedown_mousemove" style="width: 400px; height: 200px; border: 1px solid #ccc"></div>
+	<script>
+		document.getElementById('mousedown_mousemove').addEventListener('mousedown', (event) => {
+			if(event.button == 0){
+				document.getElementById('mousedown_mousemove').addEventListener('mousemove', (event) => {
+					console.log('鼠标左键按下移动过程中鼠标光标相对于浏览器的位置==', event.clientX, event.clientY);
+				}, false)
+			}
+		}, false);
+	</script>
+	<script>
+		// 自定义事件
+		// _$.prototype = {
+		//     constructor: this,
+		//     addEvent: function(type, fn, capture) {},
+		//     fireEvent: function(type) {},
+		//     removeEvent: function(type, fn, capture) {}
+		// }
+	</script>
+</body>
+</html>

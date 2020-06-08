@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>解构</title>
+	<script>
+		let [a,,, ...b] = [1,2,3,4,5,6];
+		console.log(a);
+		console.log(b);
+
+		let obj_1 = {a: 1, b: 2};
+		let obj = {...obj_1};
+		console.log(obj);  // {a: 1, b: 2}
+		let obj_2 = {b: 222, c: '333'};
+		let obj1 = {...obj_1, ...obj_2};
+		console.log(obj1);  // {a: 1, b: 222, c: "333"}
+		let obj11 = {...obj_1, obj_2};
+		console.log(obj11);  // {a: 1, b: 2, obj_2: {b: 222, c: '333'}}
+		let obj_3 = {d: 'ddd'};
+		let obj1111 = {...obj_1, ...obj_2, ...obj_3};
+		console.log(obj1111);  // {a: 1, b: 222, c: "333", d: "ddd"}
+
+		let [x, y] = new Set(['xxxxx', 'yyyyyyy']);
+		console.log(x);
+
+		function fun1([x, y]) {
+			console.log(x + y);
+		}
+		fun1([1, 3]);  // 4
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

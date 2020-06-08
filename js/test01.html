@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解构赋值、迭代器、生成器</title>
+</head>
+<body>
+    <script>
+        let [x, y] = [1,2];
+        [x, y] = [x+1, y+1];
+        [x, y] = [y ,x];
+        console.log([x, y]);
+        let first, second, all;
+        all = [first, second] = [1,2,3,4];
+        console.log('first==',first);     // 1
+        console.log('second==',second);   // 2
+        console.log('all==',all);         // [1,2,3,4]
+        let [one, [twoA, twoB]] = [1,[2.1, 2.5], 3];
+        console.log('one==',one);         // 1
+        console.log('twoA==',twoA);       // 2.1
+        console.log('twoB==',twoB);       // 2.5
+        let transparent = {r: 0.0, g: 0.0, b: 0.0, a: 1.0};
+        let {r: red, g: green, b: blue, a: opacity,} = transparent;
+        console.log('{r: red, g: green, b: blue, a: opacity}==',{r: red, g: green, b: blue, a: opacity});
+        // let sin = Math.sin, cos = Math.cos, tan = Math.tan;
+        // console.log('Math==',Math);
+        let {sin: sin, cos: cos, tan: tan} = Math;
+        console.log('{sin: sin, cos: cos, tan: tan}==',{sin: sin, cos: cos, tan: tan});
+        let data = {
+            name: "destructuring assignment",
+            type: "extension",
+            impl: [{engine: "spidermonkey", version: 1.7},
+                {engine: "rhino", version: 1.7}]
+        };
+        let {name: feature, impl: [{engine: impl1, version: v1}, {engine: impl2}]} = data;
+        // for each
+        let o = {one: 1, two: 2, three: 3};
+        for (let p in o){
+            console.log('p==',p);
+        };
+        let arr = [1,2,34,5,6,7,1]
+        arr.forEach(item => {
+            console.log('item==',item);
+        });
+        let form={nickName:'', id:'100', mobile:'', realName:'', pageSize:10, pageNum:1};
+    //     form.forEach(() => {
+            form.nickName = 'zhangsan';
+    //     });
+        console.log('form==',form);
+
+        //迭代器
+        function counter(start){
+            let nextValue = Math.round(start);
+            return {next: function(){
+                return nextValue++;
+            }};
+        };
+        let sn1 = counter(1000).next();  // 1000
+        let sn2 = counter(1011).next();  // 1011
+        console.log('sn1==',sn1);
+        console.log('sn2==',sn2);
+        // function rangeIter(first, last){
+        //     let nextValue1 = Math.ceil(first);
+        //     return {
+        //         next: function(){
+        //             if(nextValue1 > last){
+        //                 throw StopIteration;
+        //             };
+        //             return nextValue1;
+        //         }
+        //     }
+        // };
+        // let r = rangeIter(1, 5);
+        // while(true){
+        //     try {
+        //         console.log('r.next()==',r.next());
+        //     } catch (error) {
+        //         if(error = StopIteration){
+        //             break;
+        //         } else {
+        //             throw error;
+        //         }
+        //     }
+        // }
+        function range(min, max){
+            return {
+                get min() { return min;},
+                get max() { return max;},
+                includes: function(x){
+                    return min <= x && x <= max;
+                },
+                toString: function(){
+                    return "[" + min + "," + max + "]";
+                },
+                __iterator__: function(){
+                    let val = Math.ceil(min);
+                    return {
+                        next: function(){
+                            if(val > max){
+                                throw Error('error');
+                            }
+                            return val++;
+                        }
+                    }
+                }
+            }
+        }
+        var arrRange = range(1, 10);
+        console.log('arrRange==',arrRange);
+        console.log('arrRange.__iterator__().next()==',arrRange.__iterator__().next());
+        console.log('==================')
+        
+
+
+    </script>
+    <!-- <style>
+        .aa {
+            background: scroll 0 0 transparent;
+        }
+    </style> -->
+</body>
+</html>
